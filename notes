@@ -1,0 +1,23 @@
+* IntelliJ Modules
+* Spring Initializr
+* Snapshot : Under dev
+* 4.04 springboot?
+* Can use jar and war (has application server in it)
+* CommandLineRunner - interface, run (String.. args)
+* Npm : 24
+* Vite : Hot module Replacement (Change things instantly)
+
+react:
+* jsx
+* Strictmode
+* useState
+* lambda
+* onclick and lambda
+
+css:
+selector, !important (highest priority)
+@import vs link for font (links faster?)
+js
+* export
+* import {}
+* const
