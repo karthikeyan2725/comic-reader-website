@@ -17,7 +17,50 @@ react:
 css:
 selector, !important (highest priority)
 @import vs link for font (links faster?)
+
+html:
+* text field : placeholder
+
 js
 * export
 * import {}
 * const
+
+Database:
+atlas
+supabase
+timestamp vs timezone, precision
+url size (2k bytes)
+primary key
+check (for chapter count)
+
+Sql Query :
+
+create table comic (
+  id int PRIMARY KEY,
+  name varchar(100) not null,
+  author varchar(100),
+  artist varchar(100),
+  chapter_count int constraint positive_chapter_count check (chapter_count >= 0),
+  language varchar(100),
+  published timestamptz(0),
+  description text,
+  url text
+)
+
+select * from comic;
+
+docker:
+docker run --name comic-base -e POSTGRES_PASSWORD=12355 -p 5040:5432 -d postgres
+docker run --name pgadmin -p 5050:80 -e PGADMIN_DEFAULT_EMAIL=yourboykarthi@gmail.com -e PGADMIN_DEFAULT_PASSWORD=12355 -d dpage/pgadmin4
+docker ps -a
+docker container rm
+
+Spring boot:
+how to attach psql?
+
+Connect database to spring:
+* spring-boot-starter (and test)
+* spring-boot-starter-webmvc (and test)
+* spring-boot-starter-data-jpa
+* postgresql
