@@ -64,3 +64,13 @@ Connect database to spring:
 * spring-boot-starter-webmvc (and test)
 * spring-boot-starter-data-jpa
 * postgresql
+
+JPA:
+@Entity
+@Table
+@GeneratedValue
+JpaRepository interface, findall, delete, findbyID, 
+@RequestBody
+
+@PostMapping
+@GetMapping
