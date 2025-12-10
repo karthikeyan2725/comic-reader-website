@@ -14,6 +14,35 @@ react:
 * lambda
 * onclick and lambda
 
+Promise vs Asyn/await:
+ var promise = null;
+
+    function givePromise(value){
+        return  new Promise((resolve, reject)=>{
+            if(value == 200) resolve("Value is 200")
+            else reject("Value not 200");
+        })
+    }
+
+    promise = givePromise(200)
+    
+    promise
+        .then((message) => console.log("Success : " + message))
+        .catch((message)=> console.log("fail : " + message));
+
+    
+
+    async function satisfy(){
+        try {
+            var response = await givePromise(200)
+            console.log("`Success : " + response)
+        } catch (err) {
+            console.log("`fail : " + err)
+        }
+    }
+    
+    satisfy();
+
 css:
 selector, !important (highest priority)
 @import vs link for font (links faster?)
@@ -65,12 +94,39 @@ Connect database to spring:
 * spring-boot-starter-data-jpa
 * postgresql
 
+Flow:
+controller -> Service -> Repository -> Model
+
 JPA:
-@Entity
-@Table
-@GeneratedValue
+@Entity, @GeneratedValue, @column
 JpaRepository interface, findall, delete, findbyID, 
 @RequestBody
+associations : one-one, one-many, many-one, many-many, 
+jointable (many - many and mapped by)
+@JsonIgnore to avoid recursive problem
+many to one- cascade, join column
+Fetch
+orphan removal
+JsonManagedReference
+JsonBackReference
+@Column- column definintion
 
+Rest:
 @PostMapping
 @GetMapping
+@Put mapping
+@Path Variable
+Response Entity
+DTO
+modelMapper
+
+Lombok:
+data, toString, all and noargsconstructor, value, builder, getter, setter
+
+configuration class
+@bean
+@CrossOrigin
+
+Router:
+npm install react-router-dom
+browser router
