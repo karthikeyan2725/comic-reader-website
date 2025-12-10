@@ -17,24 +17,24 @@ public class Comic {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    Integer id;
+    private Integer id;
 
-    String name;
+    private String name;
 
-    String author;
+    private String author;
 
-    String artist;
+    private String artist;
 
-    Integer yearOfRelease;
+    private Integer yearOfRelease;
 
-    String language;
+    private String language;
 
     @Column(columnDefinition = "text")
-    String description;
+    private String description;
 
-    Integer chapterCount;
+    private Integer chapterCount;
 
     @OneToMany(mappedBy = "comic", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonBackReference
-    List<Chapter> chapters = new ArrayList<>();
+    private List<Chapter> chapters = new ArrayList<>();
 }

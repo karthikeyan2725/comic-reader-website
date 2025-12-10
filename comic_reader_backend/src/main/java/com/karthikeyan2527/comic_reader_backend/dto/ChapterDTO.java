@@ -10,23 +10,23 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ChapterDTO {
-    Integer id;
+    private Integer id;
 
-    Integer comicId;
+    private Integer comicId;
 
-    String comicName;
+    private String comicName;
 
-    Integer chapterNumber;
+    private Integer chapterNumber;
 
-    LocalDateTime publishedTime;
+    private LocalDateTime publishedTime;
 
-    Integer readCount;
+    private Integer readCount;
 
-    Integer pages;
+    private Integer pages;
 
-    String chapterLink;
+    private String chapterLink;
 
-    Integer prevChapterId;
+    private Integer prevChapterId;
 
-    Integer nextChapterId;
+    private Integer nextChapterId;
 }

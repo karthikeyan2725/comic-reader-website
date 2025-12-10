@@ -1,7 +1,5 @@
 package com.karthikeyan2527.comic_reader_backend;
 
-import com.karthikeyan2527.comic_reader_backend.entity.Chapter;
-import com.karthikeyan2527.comic_reader_backend.entity.Comic;
 import com.karthikeyan2527.comic_reader_backend.repository.ChapterDao;
 import com.karthikeyan2527.comic_reader_backend.repository.ComicDao;
 import lombok.extern.slf4j.Slf4j;
@@ -9,16 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.Random;
-
 @Component
 @Slf4j
-public class ComicCommandLineRunner implements CommandLineRunner {
+public class InsertComicCommandLineRunner implements CommandLineRunner { // TODO: Remove this after completion
 
     @Autowired
     ComicDao comicDao;

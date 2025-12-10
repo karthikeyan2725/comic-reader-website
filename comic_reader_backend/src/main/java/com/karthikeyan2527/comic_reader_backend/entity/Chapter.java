@@ -16,20 +16,20 @@ public class Chapter {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    Integer id;
+    private Integer id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "comic_id")
     @JsonBackReference
-    Comic comic;
+    private Comic comic;
 
-    Integer chapterNumber;
+    private Integer chapterNumber;
 
-    LocalDateTime publishedTime;
+    private LocalDateTime publishedTime;
 
-    Integer readCount;
+    private Integer readCount;
 
-    Integer pages;
+    private Integer pages;
 
-    String chapterLink;
+    private String chapterLink;
 }

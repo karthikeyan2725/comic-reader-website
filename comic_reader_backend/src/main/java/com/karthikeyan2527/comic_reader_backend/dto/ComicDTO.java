@@ -11,21 +11,21 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ComicDTO {
-    Integer id;
+    private Integer id;
 
-    String name;
+    private String name;
 
-    String author;
+    private String author;
 
-    String artist;
+    private String artist;
 
-    Integer yearOfRelease;
+    private Integer yearOfRelease;
 
-    String language;
+    private String language;
 
-    String description;
+    private String description;
 
-    Integer chapterCount;
+    private Integer chapterCount;
 
-    List<ChapterDTO> chapters = new ArrayList<>();
+    private List<ChapterDTO> chapters = new ArrayList<>();
 }
