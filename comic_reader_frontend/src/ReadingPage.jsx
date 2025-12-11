@@ -1,59 +1,63 @@
+import { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
+import axios from 'axios'
+
+import ChapterBar from "./ChapterBar"
 import './ReadingPage.css'
 
 function ReadingPage(){
+    
+    const {chapterId} = useParams();
+
+    const[chapter, setChapter] = useState(null);
+    const[imgUrls, setImgUrls] = useState([])
+
+    const imgExtension = ".webp"
+    const imgNamePadSize = 3
+
+    useEffect(()=>{
+        async function getChapter() {
+            try{
+                var response = await axios.get("http://localhost:8080/chapter/" + chapterId)
+                setChapter(response.data)
+            } catch (err) {
+                console.error("Error fetching chapter details : " + err)
+            }
+        }
+
+        getChapter()
+        setImgUrls([])
+    }, [chapterId])
+
+    useEffect(()=>{
+        if(chapter != null) {
+            var imgUrls_ = []
+            for(var i = 1; i < chapter.pages; i++){
+                var imgUrl = chapter.chapterLink + "/" + String(i).padStart(imgNamePadSize, "0") + imgExtension
+                imgUrls_.push(imgUrl)
+            }
+
+            setImgUrls(imgUrls_)
+        }
+    }, [chapter])
+
     return <>
-
-        <div class = 'header'>
-            <div class = 'logo'>ComicRaven</div>
-            <nav class = 'links'> 
-                <ul>
-                    <li><a>Home</a></li>
-                    <li><a>Browse</a></li>
-                </ul>
-            </nav>
-            <input class = 'search' type='text' placeholder='Search'></input>
-            <div class = 'profile'>P</div>
-        </div>
-
-        <div class = "comic-panel">
-
-            <h1 class = 'comic-name'>🇬🇧 Bakuman</h1>
-
-            <div class = "chapter-bar">
-                <a>&lt; prev</a> 
-                <a>Chapter</a> 
-                <a>next &gt;</a> 
-            </div>
-
-            <div class = 'comic-pages'>
-                <div class = 'page'>
-                    <img src = "https://wallpapers.com/images/hd/manga-pages-yjxwq1kmwmmeg1d6.jpg"></img>
+        {(chapter != null) ? 
+            (<div className = "comic-panel">
+                <h1 className = 'comic-name'>🇬🇧 {chapter.comicName}</h1>
+                <ChapterBar chapter = {chapter}/>
+                <div className = 'comic-pages'>
+                    {imgUrls.map((imgUrl, i) => 
+                        <div key = {i} className = 'page'>
+                            <img src = {imgUrl}></img> {/* TODO: Remove unknown space below image */}
+                        </div>
+                    )}
                 </div>
-                <div class = 'page'>
-                    <img src = "https://wallpapers.com/images/hd/manga-pages-yjxwq1kmwmmeg1d6.jpg"></img>
-                </div>
-                <div class = 'page'>
-                    <img src = "https://wallpapers.com/images/hd/manga-pages-yjxwq1kmwmmeg1d6.jpg"></img>
-                </div>
-            </div>
-
-            <div class = "chapter-bar">
-                <a>&lt; prev</a> 
-                <a>Chapter</a> 
-                <a>next &gt;</a> 
-            </div>
-
-            <div class = "footer">
-                
-                <div class = "links">
-                    GitHub  | Buy Me A Coffee | DMCA | Report
-                </div>
-                
-                <div class = "copyright">
-                    © 2025 ComicRaven.com
-                </div>
-            </div>
-        </div>
+                <ChapterBar chapter = {chapter}/>
+            </div>) 
+            :
+            (<div></div>) // TODO : Add image loading    
+        }
     </>
 }
 
