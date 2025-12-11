@@ -12,7 +12,8 @@
     .logo {
         font-weight: 700;
         font-size: 50px;
-        -webkit-text-stroke: var(--secondary-color) 3px;
+        -webkit-text-stroke: var(--secondary-color) 8px;
+        paint-order: stroke fill; 
     }
 
     .links {

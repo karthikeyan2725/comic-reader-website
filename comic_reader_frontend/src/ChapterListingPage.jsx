@@ -1,0 +1,77 @@
+import { Link, useParams } from "react-router-dom"
+import { useEffect, useState } from "react"
+import axios from "axios"
+
+import "./ChapterListingPage.css"
+
+function ChapterListingPage(){
+
+    const {comicId} = useParams()
+
+    const [comic, setComic] = useState(null)
+
+    useEffect(()=>{
+        async function getComicDetails(){
+            try {
+                const response = await axios.get("http://localhost:8080/comic/" + comicId)
+                console.log("Response")
+                console.log(response)
+                setComic(response.data)
+            }
+            catch (error) {
+                console.error("Failed to retrieve Comic Details for " + comicId + " " + error)
+            }
+        }
+
+        if(comicId != null) getComicDetails()
+    }, [comicId])
+
+    useEffect(()=>{
+        console.log(comic)
+    }, [comic])
+
+    function computePublishedAgoString(time){
+        var days = Math.floor((Date.now() - new Date(time)) / (60 * 60 * 24 * 365))
+        if(days == 0) return "Today"
+        return days + " days ago"
+    }
+
+    return (comic != null) ?
+        <div className = "comic-listing-page">
+            <div className = "comic-details">
+                <img className = "cover-art" src = {comic.coverArtUrl}></img>
+                <div className = "text-pane">
+                    <h1 className = "comic-name">{comic.name} 🇬🇧</h1>
+                    <ul className = "staff-list">
+                        <li><h4 className = "comic-staff">Author: {comic.author}</h4></li>
+                        <li><h4 className = "comic-staff">Artist: {comic.artist}</h4></li>
+                    </ul>
+                    <ul className = "genre-list">
+                        <li><h4 className="genre-bar">Action</h4></li>
+                        <li><h4 className="genre-bar">Adventure</h4></li>
+                        <li><h4 className="genre-bar">Ghosts</h4></li>
+                        <li><h4 className="genre-bar">Romance</h4></li>
+                        <li><h4 className="genre-bar">Romance</h4></li>
+                        <li><h4 className="genre-bar">Romance</h4></li>
+                        <li><h4 className="genre-bar">Romance</h4></li>
+                    </ul>
+                    <h2 className = "description">{comic.description}</h2>
+                </div>
+            </div>
+            <div className = "chapter-list-panel">
+                <h2>[Chapters]</h2>
+                {/*TODO: Add space between chapter number and (reads and published : ), sort options*/}
+                <ul className = "chapter-list">
+                    {comic.chapters.sort((a, b) => a.chapterNumber - b.chapterNumber).map((chapter, i) => 
+                        <li className = "chapter-item" key = {i}>
+                            <Link className = "chapter-link" to={"/chapter/" + chapter.id} key = {i}> Chapter {chapter.chapterNumber}, Reads : {chapter.readCount}, Published : {computePublishedAgoString(chapter.publishedTime)} </Link>
+                        </li>
+                    )}
+                </ul>
+            </div>
+        </div>
+        :
+        <div></div>
+}
+
+export default ChapterListingPage
