@@ -2,16 +2,16 @@ package com.karthikeyan2527.comic_reader_backend.controller;
 
 import com.karthikeyan2527.comic_reader_backend.dto.ChapterDTO;
 import com.karthikeyan2527.comic_reader_backend.service.ComicService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Slf4j
+@CrossOrigin("http://localhost:5173") // TODO: Make Global or use Application Yaml
 @RestController
 @RequestMapping("comic")
 public class ComicController {

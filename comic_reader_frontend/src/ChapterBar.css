@@ -1,0 +1,12 @@
+.chapter-bar {
+    border-color: var(--tertiary-color);
+    border-style: solid;
+    border-width: 2px 0px;
+
+    display: flex;
+    justify-content: space-between;
+
+    .link {
+        color: var(--tertiary-color);
+    }
+} 

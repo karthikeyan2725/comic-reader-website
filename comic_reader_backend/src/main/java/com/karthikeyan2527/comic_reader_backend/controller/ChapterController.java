@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @Slf4j
-@CrossOrigin("http://localhost:5173/") // TODO: Make Global or use Application Yaml
+@CrossOrigin("http://localhost:5173") // TODO: Make Global or use Application Yaml
 @RestController
 @RequestMapping("chapter")
 public class ChapterController {
@@ -18,8 +18,8 @@ public class ChapterController {
     ChapterService chapterService;
 
     // TODO : Return Reason for error (Chapter not found)
-    @GetMapping("/{chapterId}")
-    ResponseEntity<ChapterDTO> getChapterDetails(@PathVariable("chapterId") Integer chapterId){
+    @GetMapping("/{chapter_id}")
+    ResponseEntity<ChapterDTO> getChapterDetails(@PathVariable("chapter_id") Integer chapterId){
         return chapterService.getChapterDetails(chapterId)
                 .map(ResponseEntity::ok)
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));

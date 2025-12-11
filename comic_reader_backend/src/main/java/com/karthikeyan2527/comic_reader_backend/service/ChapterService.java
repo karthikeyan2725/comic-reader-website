@@ -5,6 +5,7 @@ import com.karthikeyan2527.comic_reader_backend.entity.Chapter;
 import com.karthikeyan2527.comic_reader_backend.entity.Comic;
 import com.karthikeyan2527.comic_reader_backend.repository.ChapterDao;
 import com.karthikeyan2527.comic_reader_backend.repository.ComicDao;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
+@Slf4j
 @Service
 public class ChapterService { // TODO : Check if methods could be simplified.
 

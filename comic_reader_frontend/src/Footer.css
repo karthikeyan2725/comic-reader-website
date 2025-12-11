@@ -1,0 +1,13 @@
+ .footer{
+    color:black;
+    background-color: var(--tertiary-color);
+    transform: perspective(8px) rotateX(2deg);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .links, .copyright{
+        transform: perspective(8px) rotateX(-2deg);
+    }
+}
