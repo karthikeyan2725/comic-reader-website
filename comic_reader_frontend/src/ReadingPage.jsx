@@ -7,34 +7,34 @@ import './ReadingPage.css'
 
 function ReadingPage(){
     
-    var devMode = false
+    var devMode = true
 
     const {chapterId} = useParams();
 
-    const[chapter, setChapter] = useState(null);
-    const[imgUrls, setImgUrls] = useState([])
+    const [chapter, setChapter] = useState(null);
+    const [imgUrls, setImgUrls] = useState([])
 
     const imgExtension = ".webp"
     const imgNamePadSize = 3
 
-    useEffect(()=>{
-        async function getChapter() { // TODO: Refactor again
-            try{
-                var response = await axios.get("http://localhost:8080/chapter/" + chapterId)
+    async function getChapter() { // TODO: Refactor again
+        try{
+            var response = await axios.get("http://localhost:8080/chapter/" + chapterId)
 
-                if(!devMode) setChapter(response.data)
-                
-                if(devMode) {
-                    var tempChapter = response.data
-                    tempChapter.chapterLink = "/test"
-                    tempChapter.pages = 10
-                    setChapter(response.data)
-                }
-            } catch (err) {
-                console.error("Error fetching chapter details : " + err)
+            if(!devMode) setChapter(response.data)
+            
+            if(devMode) {
+                var tempChapter = response.data
+                tempChapter.chapterLink = "/test"
+                tempChapter.pages = 10
+                setChapter(response.data)
             }
+        } catch (err) {
+            console.error("Error fetching chapter details : " + err)
         }
+    }
 
+    useEffect(()=>{
         if(chapterId != null){
             getChapter()
             setImgUrls([])

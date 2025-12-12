@@ -10,25 +10,21 @@ function ChapterListingPage(){
 
     const [comic, setComic] = useState(null)
 
-    useEffect(()=>{
-        async function getComicDetails(){
-            try {
-                const response = await axios.get("http://localhost:8080/comic/" + comicId)
-                console.log("Response")
-                console.log(response)
-                setComic(response.data)
-            }
-            catch (error) {
-                console.error("Failed to retrieve Comic Details for " + comicId + " " + error)
-            }
+    async function getComicDetails(){
+        try {
+            const response = await axios.get("http://localhost:8080/comic/" + comicId)
+            console.log("Response")
+            console.log(response)
+            setComic(response.data)
         }
-
+        catch (error) {
+            console.error("Failed to retrieve Comic Details for " + comicId + " " + error)
+        }
+    }
+    
+    useEffect(()=>{
         if(comicId != null) getComicDetails()
     }, [comicId])
-
-    useEffect(()=>{
-        console.log(comic)
-    }, [comic])
 
     function computePublishedAgoString(time){
         var days = Math.floor((Date.now() - new Date(time)) / (60 * 60 * 24 * 365))
@@ -52,7 +48,7 @@ function ChapterListingPage(){
                             <li><h4 className="genre-bar" key={i}>{genre.name}</h4></li>
                         )}
                     </ul>
-                    <h2 className = "description">{comic.description}</h2>
+                    <h2 className = "description">{comic.description}</h2> {/* TODO: Make this p? */}
                 </div>
             </div>
             <div className = "chapter-list-panel">

@@ -1,9 +1,3 @@
-body {
-    background-color: var(--secondary-color);
-    font-family: "Jersey 10", sans-serif;
-    font-style: normal;
-}
-
 .comic-panel{
     width: 60%;
     margin: auto;
