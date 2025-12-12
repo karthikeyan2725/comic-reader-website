@@ -45,7 +45,9 @@ Promise vs Asyn/await:
 
 css:
 selector, !important (highest priority)
-@import vs link for font (links faster?)
+@import vs link for font (links faster?
+webkit-text-stroke, paint order
+flex, gap,
 
 html:
 * text field : placeholder
@@ -78,6 +80,7 @@ create table comic (
 )
 
 select * from comic;
+Create database dbname with template existingDbName;
 
 docker:
 docker run --name comic-base -e POSTGRES_PASSWORD=12355 -p 5040:5432 -d postgres
@@ -126,7 +129,11 @@ data, toString, all and noargsconstructor, value, builder, getter, setter
 configuration class
 @bean
 @CrossOrigin
+@WebConfiguration
 
 Router:
 npm install react-router-dom
 browser router
+Link
+BrowserRouter
+Route

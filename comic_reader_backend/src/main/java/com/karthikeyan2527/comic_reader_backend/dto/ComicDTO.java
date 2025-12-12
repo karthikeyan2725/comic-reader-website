@@ -1,5 +1,6 @@
 package com.karthikeyan2527.comic_reader_backend.dto;
 
+import com.karthikeyan2527.comic_reader_backend.entity.Genre;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -26,6 +27,10 @@ public class ComicDTO {
     private String description;
 
     private Integer chapterCount;
+
+    private String coverArtUrl;
+
+    private List<Genre> genres;
 
     private List<ChapterDTO> chapters = new ArrayList<>();
 }

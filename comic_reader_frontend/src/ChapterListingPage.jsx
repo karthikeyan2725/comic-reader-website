@@ -33,6 +33,7 @@ function ChapterListingPage(){
     function computePublishedAgoString(time){
         var days = Math.floor((Date.now() - new Date(time)) / (60 * 60 * 24 * 365))
         if(days == 0) return "Today"
+        if(days == 1) return days + " day ago"
         return days + " days ago"
     }
 
@@ -47,13 +48,9 @@ function ChapterListingPage(){
                         <li><h4 className = "comic-staff">Artist: {comic.artist}</h4></li>
                     </ul>
                     <ul className = "genre-list">
-                        <li><h4 className="genre-bar">Action</h4></li>
-                        <li><h4 className="genre-bar">Adventure</h4></li>
-                        <li><h4 className="genre-bar">Ghosts</h4></li>
-                        <li><h4 className="genre-bar">Romance</h4></li>
-                        <li><h4 className="genre-bar">Romance</h4></li>
-                        <li><h4 className="genre-bar">Romance</h4></li>
-                        <li><h4 className="genre-bar">Romance</h4></li>
+                        {comic.genres.map((genre, i)=>
+                            <li><h4 className="genre-bar" key={i}>{genre.name}</h4></li>
+                        )}
                     </ul>
                     <h2 className = "description">{comic.description}</h2>
                 </div>

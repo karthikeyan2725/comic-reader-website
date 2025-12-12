@@ -1,5 +1,7 @@
  .footer{
     color:black;
+    width: 80%;
+    margin: auto;
     background-color: var(--tertiary-color);
     transform: perspective(8px) rotateX(2deg);
 
