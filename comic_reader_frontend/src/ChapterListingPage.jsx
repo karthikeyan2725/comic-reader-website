@@ -38,7 +38,7 @@ function ChapterListingPage(){
             <div className = "comic-details">
                 <img className = "cover-art" src = {comic.coverArtUrl}></img>
                 <div className = "text-pane">
-                    <h1 className = "comic-name">{comic.name} 🇬🇧</h1>
+                    <h1 className = "comic-name">{comic.name} 🇬🇧</h1> {/* TODO: Handle Language Icon */}
                     <ul className = "staff-list">
                         <li><h4 className = "comic-staff">Author: {comic.author}</h4></li>
                         <li><h4 className = "comic-staff">Artist: {comic.artist}</h4></li>
