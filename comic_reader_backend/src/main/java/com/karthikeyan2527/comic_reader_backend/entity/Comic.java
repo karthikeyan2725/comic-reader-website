@@ -34,7 +34,13 @@ public class Comic {
 
     private Integer chapterCount;
 
+    // TODO: The mapped table is comic_genres => make it to comic_genre
+    @ManyToMany(cascade = CascadeType.ALL)
+    private List<Genre> genres;
+
+    private String coverArtUrl;
+
     @OneToMany(mappedBy = "comic", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonBackReference
-    private List<Chapter> chapters = new ArrayList<>();
+    private List<Chapter> chapters;
 }

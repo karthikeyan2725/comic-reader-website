@@ -1,6 +1,7 @@
 package com.karthikeyan2527.comic_reader_backend.service;
 
 import com.karthikeyan2527.comic_reader_backend.dto.ChapterDTO;
+import com.karthikeyan2527.comic_reader_backend.dto.ComicDTO;
 import com.karthikeyan2527.comic_reader_backend.entity.Chapter;
 import com.karthikeyan2527.comic_reader_backend.entity.Comic;
 import com.karthikeyan2527.comic_reader_backend.repository.ComicDao;
@@ -33,5 +34,16 @@ public class ComicService {
                 .toList();
 
         return Optional.of(chapterDTOS);
+    }
+
+    public Optional<ComicDTO> getComicDetail(Integer comicId){
+        Optional<Comic> optionalComic = comicDao.findById(comicId);
+
+        if(optionalComic.isEmpty()) return Optional.empty();
+
+        Comic comic = optionalComic.get();
+        ComicDTO comicDTO = modelMapper.map(comic, ComicDTO.class);
+
+        return Optional.of(comicDTO);
     }
 }

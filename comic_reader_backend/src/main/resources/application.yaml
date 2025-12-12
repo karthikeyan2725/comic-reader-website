@@ -3,7 +3,7 @@ spring:
     name: comic_reader_backend
 
   datasource:
-    url: jdbc:postgresql://localhost:5432/comic_base
+    url: jdbc:postgresql://localhost:5432/dev
     username: postgres
     password: 12355
     driver-class-name: org.postgresql.Driver

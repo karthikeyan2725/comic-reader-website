@@ -27,5 +27,9 @@ public class ComicDTO {
 
     private Integer chapterCount;
 
-    private List<ChapterDTO> chapters = new ArrayList<>();
+    private String coverArtUrl;
+
+    private List<GenreDTO> genres;
+
+    private List<ChapterDTO> chapters;
 }

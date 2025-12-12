@@ -1,6 +1,7 @@
 package com.karthikeyan2527.comic_reader_backend.controller;
 
 import com.karthikeyan2527.comic_reader_backend.dto.ChapterDTO;
+import com.karthikeyan2527.comic_reader_backend.dto.ComicDTO;
 import com.karthikeyan2527.comic_reader_backend.service.ComicService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,13 @@ public class ComicController {
     @GetMapping("/{comic_id}/chapters")
     ResponseEntity<List<ChapterDTO>> getComicChapters(@PathVariable("comic_id") Integer comicId){
         return comicService.getChaptersOfComic(comicId)
+                .map(ResponseEntity::ok)
+                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+    @GetMapping("/{comic_id}")
+    ResponseEntity<ComicDTO> getComicDetails(@PathVariable("comic_id") Integer comicId){
+        return comicService.getComicDetail(comicId)
                 .map(ResponseEntity::ok)
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
