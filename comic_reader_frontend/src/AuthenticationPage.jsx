@@ -13,7 +13,26 @@ function AuthenticationPage({type}){ // TODO: Redesign UI
         event.preventDefault()
 
         console.log("Performing: " + type)
-        const response = await axios.get("http://localhost:8080/chapter/2202")
+
+        if(type == "sign-up"){
+            try{
+                const response = await axios.post("http://localhost:8080/user/sign-up", {"email" : email, "password" : password})
+                if(response.status == 200) console.log("Sign Up Success")
+            }
+            catch (err){
+                console.log("Sign Up Fail")
+            }
+        }
+
+        if(type == "sign-in"){
+            try{
+                const response = await axios.post("http://localhost:8080/user/sign-in", {"email" : email, "password" : password})
+                if(response.status == 200) console.log("Sign In Success")
+            }
+            catch (err){
+                console.log("Sign Up Fail " + err.status)
+            }
+        }
     }
 
     useEffect(()=>{
