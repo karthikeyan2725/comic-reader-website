@@ -113,6 +113,8 @@ orphan removal
 JsonManagedReference
 JsonBackReference
 @Column- column definintion
+@Non Null
+
 
 Rest:
 @PostMapping

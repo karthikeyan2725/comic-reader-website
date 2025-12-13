@@ -14,7 +14,7 @@ function AuthenticationPage({type}){ // TODO: Redesign UI
 
         console.log("Performing: " + type)
 
-        if(type == "sign-up"){
+        if(type == "sign-up"){ // TODO: Move to seperate function
             try{
                 const response = await axios.post("http://localhost:8080/user/sign-up", {"email" : email, "password" : password})
                 if(response.status == 200) console.log("Sign Up Success")
@@ -30,7 +30,7 @@ function AuthenticationPage({type}){ // TODO: Redesign UI
                 if(response.status == 200) console.log("Sign In Success")
             }
             catch (err){
-                console.log("Sign Up Fail " + err.status)
+                console.log("Sign In Fail " + err.status)
             }
         }
     }

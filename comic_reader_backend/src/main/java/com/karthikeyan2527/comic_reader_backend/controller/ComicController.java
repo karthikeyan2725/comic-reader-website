@@ -2,7 +2,9 @@ package com.karthikeyan2527.comic_reader_backend.controller;
 
 import com.karthikeyan2527.comic_reader_backend.dto.ChapterDTO;
 import com.karthikeyan2527.comic_reader_backend.dto.ComicDTO;
+import com.karthikeyan2527.comic_reader_backend.entity.Comment;
 import com.karthikeyan2527.comic_reader_backend.service.ComicService;
+import com.karthikeyan2527.comic_reader_backend.service.CommentService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,6 +22,9 @@ public class ComicController {
     @Autowired
     ComicService comicService;
 
+    @Autowired
+    CommentService commentService;
+
     // TODO: Handle when 1) Comic not found 2) comic does not contain any chapter
     @GetMapping("/{comic_id}/chapters")
     ResponseEntity<List<ChapterDTO>> getComicChapters(@PathVariable("comic_id") Integer comicId){
@@ -33,5 +38,12 @@ public class ComicController {
         return comicService.getComicDetail(comicId)
                 .map(ResponseEntity::ok)
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+    @GetMapping("/{comic_id}/comments")
+    ResponseEntity<List<Comment>> getComicComments(@PathVariable("comic_id") Integer comicId){ // TODO: Handle comic not found with optional, Check again for consistency
+        List<Comment> comments = commentService.getComicComments(comicId);
+
+        return ResponseEntity.ok(comments);
     }
 }

@@ -2,6 +2,7 @@ package com.karthikeyan2527.comic_reader_backend.service;
 
 import com.karthikeyan2527.comic_reader_backend.entity.User;
 import com.karthikeyan2527.comic_reader_backend.repository.UserDao;
+import jakarta.annotation.Nonnull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -17,8 +18,9 @@ public class ComicUserDetailsService implements UserDetailsService {
     private UserDao userDao;
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<User> optionalUser = userDao.findById(username);
+    @Nonnull
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        Optional<User> optionalUser = userDao.findByEmail(email);
 
         if(optionalUser.isEmpty()) throw new UsernameNotFoundException("There is no user with provided Email");
 

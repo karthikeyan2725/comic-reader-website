@@ -33,9 +33,9 @@ public class UserService {
     }
 
     public Boolean signUp(User user){
-        if(user.getEmail().isEmpty()) return false; // TODO: Differentiate Null user and user present failure
+        if(user.getEmail().isEmpty()) return false; // TODO: Differentiate Null user and user present failure, Return Enum?
 
-        Optional<User> optionalUser = userDao.findById(user.getEmail()); // TODO: userDao.checkIfUserNameUsed(), refactor
+        Optional<User> optionalUser = userDao.findByEmail(user.getEmail()); // TODO: userDao.checkIfUserNameUsed(), refactor
 
         if(optionalUser.isPresent()) return false;
 
