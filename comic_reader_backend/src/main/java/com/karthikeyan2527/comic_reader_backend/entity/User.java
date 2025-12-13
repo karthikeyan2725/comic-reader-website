@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class User {
+public class User { // TODO: Add name to user
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

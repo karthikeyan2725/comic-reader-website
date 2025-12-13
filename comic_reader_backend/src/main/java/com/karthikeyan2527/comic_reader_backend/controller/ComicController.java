@@ -2,6 +2,7 @@ package com.karthikeyan2527.comic_reader_backend.controller;
 
 import com.karthikeyan2527.comic_reader_backend.dto.ChapterDTO;
 import com.karthikeyan2527.comic_reader_backend.dto.ComicDTO;
+import com.karthikeyan2527.comic_reader_backend.dto.CommentDTO;
 import com.karthikeyan2527.comic_reader_backend.entity.Comment;
 import com.karthikeyan2527.comic_reader_backend.service.ComicService;
 import com.karthikeyan2527.comic_reader_backend.service.CommentService;
@@ -12,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @CrossOrigin("http://localhost:5173") // TODO: Make Global or use Application Yaml
@@ -41,9 +43,18 @@ public class ComicController {
     }
 
     @GetMapping("/{comic_id}/comments")
-    ResponseEntity<List<Comment>> getComicComments(@PathVariable("comic_id") Integer comicId){ // TODO: Handle comic not found with optional, Check again for consistency
-        List<Comment> comments = commentService.getComicComments(comicId);
+    ResponseEntity<List<CommentDTO>> getComicComments(@PathVariable("comic_id") Integer comicId){ // TODO: Handle comic not found with optional, Check again for consistency
+        List<CommentDTO> comments = commentService.getComicComments(comicId);
 
         return ResponseEntity.ok(comments);
+    }
+
+    @PostMapping("/comment")
+    ResponseEntity<?> postComicComment(@RequestBody CommentDTO commentDTO){
+        Optional<CommentDTO> optionalCommentDTO = commentService.saveComicComment(commentDTO);
+
+        if(optionalCommentDTO.isPresent()) return new ResponseEntity<>(HttpStatus.OK);
+
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 }
