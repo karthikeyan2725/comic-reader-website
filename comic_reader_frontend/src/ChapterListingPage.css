@@ -1,9 +1,9 @@
-.comic-listing-page{
-
+.comic-listing-page {
+    margin: 80px 0px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 80px 0px;
+    gap: 20px;
 
     .comic-details {
         width: 80%;
@@ -104,6 +104,84 @@
                 
                 .chapter-link{
                     color: var(--secondary-color);
+                }
+            }
+        }
+    }
+
+    .comments-panel { /* TODO : Optimize color */
+        width: 90%;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        
+        .panel-header {
+            color: var(--tertiary-color);
+        }
+        
+        .comments-list {
+            list-style-type: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            
+
+            .comment-item {
+                width: 100%;
+                border-left: var(--primary-color) 6px solid;
+                padding: 0px 10px;
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+
+                .profile-vote-row{
+                    display: flex;
+                    justify-content: space-between;
+                    
+                    .profile {
+                        align-items: center;
+                        display: flex;
+                        gap: 10px;
+
+                        .profile-pic {
+                            width: 40px;
+                            height: 40px;
+                        }
+
+                        .name-time-section {
+                            .name{
+                                color: white; 
+
+                            }
+
+                            .comment-time {
+                                color: var(--tertiary-color);
+                            }
+                        }
+                    }
+
+                    .vote-section {
+                        color : var(--tertiary-color);
+                        display: flex;
+                        gap: 10px;
+                        
+                        .upvote-num {
+                            color: white;
+                        }
+
+                        .vote-buttons {
+                            display: flex;
+                            gap: 4px;
+                            
+                            .vote:hover {
+                                text-decoration: underline;
+                            }
+                        }
+                    }
+                }
+
+                .comment-text{
+                    color: white; 
                 }
             }
         }

@@ -65,6 +65,69 @@ function ChapterListingPage(){
                     )}
                 </ul>
             </div>
+            
+            <div className="comments-panel">
+                    <h2 className="panel-header">Comments</h2>
+                    <ul className="comments-list">
+
+                        <li className="comment-item">
+                            <div className="profile-vote-row">
+                                <div className="profile">
+                                    <img className="profile-pic" src = "https://www.shutterstock.com/image-vector/vector-profile-icon-260nw-380603071.jpg"></img>
+                                    <div className="name-time-section">
+                                        <h3 className="name">UserMail</h3>
+                                        <h5 className="comment-time">20 days ago</h5>
+                                    </div>
+                                </div>
+                                <div className="vote-section">
+                                    <h3 className="upvote-num">100</h3>
+                                    <h3 className="vote-buttons">
+                                        <div className="vote" onClick={()=>{console.log("Upvote")}}>Upvote</div> | <div className="vote" onClick={()=>(console.log("downvote"))}>Downvote</div>
+                                    </h3>
+                                </div>
+                            </div>
+                            <h3 className="comment-text">Comment Text. blah blah blah blah.</h3>
+                        </li>
+
+                        <li className="comment-item">
+                            <div className="profile-vote-row">
+                                <div className="profile">
+                                    <img className="profile-pic" src = "https://www.shutterstock.com/image-vector/vector-profile-icon-260nw-380603071.jpg"></img>
+                                    <div className="name-time-section">
+                                        <h3 className="name">UserMail</h3>
+                                        <h5 className="comment-time">20 days ago</h5>
+                                    </div>
+                                </div>
+                                <div className="vote-section">
+                                    <h3 className="upvote-num">100</h3>
+                                    <h3 className="vote-buttons">
+                                        <div className="vote" onClick={()=>{console.log("Upvote")}}>Upvote</div> | <div className="vote" onClick={()=>(console.log("downvote"))}>Downvote</div>
+                                    </h3>
+                                </div>
+                            </div>
+                            <h3 className="comment-text">Comment Text. blah blah blah blah.</h3>
+                        </li>
+
+                        <li className="comment-item">
+                            <div className="profile-vote-row">
+                                <div className="profile">
+                                    <img className="profile-pic" src = "https://www.shutterstock.com/image-vector/vector-profile-icon-260nw-380603071.jpg"></img>
+                                    <div className="name-time-section">
+                                        <h3 className="name">UserMail</h3>
+                                        <h5 className="comment-time">20 days ago</h5>
+                                    </div>
+                                </div>
+                                <div className="vote-section">
+                                    <h3 className="upvote-num">100</h3>
+                                    <h3 className="vote-buttons">
+                                        <div className="vote" onClick={()=>{console.log("Upvote")}}>Upvote</div> | <div className="vote" onClick={()=>(console.log("downvote"))}>Downvote</div>
+                                    </h3>
+                                </div>
+                            </div>
+                            <h3 className="comment-text">Comment Text. blah blah blah blah.</h3>
+                        </li>
+                    </ul>
+            </div>
         </div>
         :
         <div></div>
