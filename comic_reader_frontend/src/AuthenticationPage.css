@@ -1,6 +1,6 @@
 .auth-page {
 
-    .credential-panel {
+    .credential-panel { /* TODO: Add Box Shadow to panel */
         background-color: var(--secondary-color);
         border: 2px var(--tertiary-color) solid;
         width: 40%;

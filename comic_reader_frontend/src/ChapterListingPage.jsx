@@ -6,6 +6,9 @@ import "./ChapterListingPage.css"
 
 function ChapterListingPage(){
 
+    var devMode = true
+    var devCoverUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ7QNFJ3J1j40v63v45mHPdHN7EE9djaHSEBg&s"
+    
     const {comicId} = useParams()
 
     const [comic, setComic] = useState(null)
@@ -36,7 +39,7 @@ function ChapterListingPage(){
     return (comic != null) ?
         <div className = "comic-listing-page">
             <div className = "comic-details">
-                <img className = "cover-art" src = {comic.coverArtUrl}></img>
+                <img className = "cover-art" src = {devMode ? devCoverUrl : comic.coverArtUrl}></img>
                 <div className = "text-pane">
                     <h1 className = "comic-name">{comic.name} 🇬🇧</h1> {/* TODO: Handle Language Icon */}
                     <ul className = "staff-list">

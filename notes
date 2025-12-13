@@ -147,3 +147,11 @@ Session Mangement
 RBAC
 Password encoding
 Filterchain
+
+Security
+1. dependency
+2. Security Configuration : Security FilterChain, Http, request matcher andMatcher  , cors, csrf, 
+    * UserEntity (Cannot use user table name in postgres/h2) and UserDao
+    * UserDetailsService (loadbyname) implementation, granted authority if needed
+    * Authentication Manager builder bean (Also check providers)
+    * Inject AuthenticationManager In Controller, .authenticate method(UsernamePasswordAuthenticationToken), add to security context holder.

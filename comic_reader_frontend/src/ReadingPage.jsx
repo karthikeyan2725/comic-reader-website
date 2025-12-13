@@ -8,7 +8,7 @@ import './ReadingPage.css'
 
 function ReadingPage(){
     
-    var devMode = false
+    var devMode = true
 
     const {chapterId} = useParams();
 
