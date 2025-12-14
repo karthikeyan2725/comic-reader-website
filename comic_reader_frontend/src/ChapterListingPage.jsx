@@ -40,7 +40,8 @@ function ChapterListingPage(){
     async function postComicComment(){
         try {
             const response = await axios.post("http://localhost:8080/comic/comment", // TODO: change API 
-                {"user" : {"id" : 1},  // TODO: Get UserId from JWT or Session
+                {"token": sessionStorage.getItem("token"),
+                "commentType" : "comic",
                  "commentEntityId" : comicId,
                 "comment" : comment}
             )

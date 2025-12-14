@@ -3,6 +3,7 @@ package com.karthikeyan2527.comic_reader_backend.controller;
 import com.karthikeyan2527.comic_reader_backend.dto.ChapterDTO;
 import com.karthikeyan2527.comic_reader_backend.dto.ComicDTO;
 import com.karthikeyan2527.comic_reader_backend.dto.CommentDTO;
+import com.karthikeyan2527.comic_reader_backend.dto.CommentPostDTO;
 import com.karthikeyan2527.comic_reader_backend.entity.Comment;
 import com.karthikeyan2527.comic_reader_backend.service.ComicService;
 import com.karthikeyan2527.comic_reader_backend.service.CommentService;
@@ -50,8 +51,9 @@ public class ComicController {
     }
 
     @PostMapping("/comment")
-    ResponseEntity<?> postComicComment(@RequestBody CommentDTO commentDTO){
-        Optional<CommentDTO> optionalCommentDTO = commentService.saveComicComment(commentDTO);
+    ResponseEntity<?> postComicComment(@RequestBody CommentPostDTO commentPostDTO){
+        log.info(commentPostDTO.toString());
+        Optional<CommentDTO> optionalCommentDTO = commentService.saveComment(commentPostDTO); // TODO: Should this return commentDTO?
 
         if(optionalCommentDTO.isPresent()) return new ResponseEntity<>(HttpStatus.OK);
 
