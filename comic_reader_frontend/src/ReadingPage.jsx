@@ -18,7 +18,7 @@ function ReadingPage(){
     const imgExtension = ".webp"
     const imgNamePadSize = 3
 
-    async function getChapter() { // TODO: Refactor again
+    async function getChapter() { 
         try{
             var response = await axios.get("http://localhost:8080/chapter/" + chapterId)
 

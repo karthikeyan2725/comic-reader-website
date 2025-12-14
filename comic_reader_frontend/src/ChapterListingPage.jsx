@@ -18,20 +18,19 @@ function ChapterListingPage(){
     async function getComicDetails(){
         try {
             const response = await axios.get("http://localhost:8080/comic/" + comicId)
-            // console.log("Response")
-            // console.log(response)
+
             setComic(response.data)
         }
         catch (error) {
-            console.error("Failed to retrieve Comic Details for " + comicId + " " + error)
+            console.error("Failed to retrieve Comic Details for " + comicId)
         }
     }
 
     async function getComicComments(){
         try{
             const response = await axios.get("http://localhost:8080/comic/" + comicId + "/comments")
+
             setComments(response.data)
-            console.log(response.data)
         } catch {
             console.error("Failed to retrieve comments for Comic Id : " + comicId)
         }
@@ -39,12 +38,13 @@ function ChapterListingPage(){
 
     async function postComicComment(){
         try {
-            const response = await axios.post("http://localhost:8080/comic/comment", // TODO: change API 
+            const response = await axios.post("http://localhost:8080/comic/comment", 
                 {"token": sessionStorage.getItem("token"),
                 "commentType" : "comic",
-                 "commentEntityId" : comicId,
+                "commentEntityId" : comicId,
                 "comment" : comment}
             )
+
             setComment("")
             getComicComments()
         } catch (err) {
@@ -73,24 +73,26 @@ function ChapterListingPage(){
                 <div className = "text-pane">
                     <h1 className = "comic-name">{comic.name} 🇬🇧</h1> {/* TODO: Handle Language Icon */}
                     <ul className = "staff-list">
-                        <li><h4 className = "comic-staff">Author: {comic.author}</h4></li>
-                        <li><h4 className = "comic-staff">Artist: {comic.artist}</h4></li>
+                        <li><h3 className = "comic-staff">Author: {comic.author}</h3></li>
+                        <li><h3 className = "comic-staff">Artist: {comic.artist}</h3></li>
                     </ul>
                     <ul className = "genre-list">
                         {comic.genres.map((genre, i)=>
-                            <li><h4 className="genre-bar" key={i}>{genre.name}</h4></li>
+                            <li><h3 className="genre-bar" key={i}>{genre.name}</h3></li>
                         )}
                     </ul>
-                    <h2 className = "description">{comic.description}</h2> {/* TODO: Make this p? */}
+                    <h2 className = "description">{comic.description}</h2> 
                 </div>
             </div>
             <div className = "chapter-list-panel">
                 <h2>[Chapters]</h2>
-                {/*TODO: Add space between chapter number and (reads and published : ), sort options*/}
                 <ul className = "chapter-list">
                     {comic.chapters.sort((a, b) => a.chapterNumber - b.chapterNumber).map((chapter, i) => 
                         <li className = "chapter-item" key = {i}>
-                            <Link className = "chapter-link" to={"/chapter/" + chapter.id} key = {i}> Chapter {chapter.chapterNumber}, Reads : {chapter.readCount}, Published : {computePublishedAgoString(chapter.publishedTime)} </Link>
+                            <Link className = "chapter-link" to={"/chapter/" + chapter.id} key = {i}> 
+                                <div className="chapter-num">Chapter {chapter.chapterNumber}</div> 
+                                <div className="read-published">Reads : {chapter.readCount} - Published : {computePublishedAgoString(chapter.publishedTime)}</div>
+                            </Link>
                         </li>
                     )}
                 </ul>

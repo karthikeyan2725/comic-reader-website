@@ -6,20 +6,27 @@ import Header from './common/Header'
 import Footer from './common/Footer'
 import LinksTestPage from './LinksTestPage'
 import AuthenticationPage from './AuthenticationPage'
+import { useLocation } from 'react-router-dom'
 
 import './App.css'
-import './Color.css'
+import './Variables.css'
+import { useEffect } from 'react'
 
 function App() {
+  let {pathname} = useLocation()
+
+  const disableFooterLocations = ["/sign-in", "/sign-up"]
+
   return <>
     <Header/>
       <Routes>  
-        <Route path='/chapter/:chapterId' element={<><ReadingPage/><Footer/></>}></Route> {/* TODO : Change this way of nesting footer */}
-        <Route path='/comic/:comicId' element={<><ChapterListingPage/><Footer/></>}></Route>
-        <Route path='/links' element={<><LinksTestPage/><Footer/></>}></Route>
-        <Route path='/sign-in' element={<AuthenticationPage type="sign-in"/>}></Route> {/* Use enum if possible for type*/}
+        <Route path='/chapter/:chapterId' element={<ReadingPage/>}></Route> 
+        <Route path='/comic/:comicId' element={<ChapterListingPage/>}></Route>
+        <Route path='/links' element={<LinksTestPage/>}></Route>
+        <Route path='/sign-in' element={<AuthenticationPage type="sign-in"/>}></Route> {/* TODO :Use enum if possible for type*/}
         <Route path='/sign-up' element={<AuthenticationPage type="sign-up"/>}></Route> 
       </Routes>
+    {(disableFooterLocations.includes(pathname)) ?  null : <Footer/>}
   </>
 }
 

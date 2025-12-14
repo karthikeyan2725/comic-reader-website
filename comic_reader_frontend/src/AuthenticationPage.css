@@ -1,10 +1,15 @@
 .auth-page {
+    margin-top: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-    .credential-panel { /* TODO: Add Box Shadow to panel */
+    .credential-panel { 
         background-color: var(--secondary-color);
         border: 2px var(--tertiary-color) solid;
         width: 40%;
         padding: 10px;
+        box-shadow: black 0px 0px 50px;
 
         display: flex;
         flex-direction: column;
@@ -42,7 +47,7 @@
                 .input-field {
                     color: white;
                     font-size: x-large;
-                    font-family: "Jersey 10", sans-serif; /* TODO: Font style into var() */
+                    font-family: var(--font-family);
                     font-style: normal;
                     caret-color: var(--tertiary-color);
                     background-color: var(--secondary-color);
@@ -66,7 +71,7 @@
                 border: 4px var(--tertiary-color) solid;
                 border-style: outset;
                 width: 60%;
-                font-family: "Jersey 10", sans-serif;
+                font-family: var(--font);
                 font-style: normal;
                 font-size: 1.3em;
             }

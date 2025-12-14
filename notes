@@ -139,6 +139,8 @@ browser router
 Link
 BrowserRouter
 Route
+usePathName
+useParam
 
 Spring Security:
 Authentication

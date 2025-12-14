@@ -9,7 +9,6 @@
         width: 80%;
         display: flex;
         flex-direction: row;
-        align-items: center;
         gap: 30px;
         min-width: 0;
         
@@ -20,7 +19,6 @@
 
         .text-pane {
             color : var(--tertiary-color);
-            
             display: flex;
             flex-direction: column;
             gap : 8px;
@@ -28,7 +26,7 @@
             .comic-name {
                 margin-bottom: 8px;
                 -webkit-text-stroke: var(--primary-color) 8px;
-                paint-order: stroke fill; /* TODO: Use paint over globally*/
+                paint-order: stroke fill; 
             }
             
             .staff-list {
@@ -46,7 +44,6 @@
             .genre-list {
                 width: fit-content;
                 padding: 8px;
-                /* border: var(--primary-color) 1px solid; TODO: Check if this is good  */
 
                 display: flex;
                 flex-wrap: wrap;
@@ -59,8 +56,7 @@
                 }
             }
 
-            .desciption {
-                /* TODO: Handle Overflow of text*/
+            .description {
                 text-align: justify;
             }
         }
@@ -91,10 +87,17 @@
                 border: 1px var(--tertiary-color) solid;
                 
                 .chapter-link{
-                    display: block;
                     font-size: larger;
                     color: var(--tertiary-color);
                     padding: 2px 8px;
+                    text-decoration: none;
+
+                    display: flex;
+                    justify-content: space-between;
+
+                    .read-published {
+                        text-decoration: underline;
+                    }
                 }
 
             }
@@ -109,7 +112,7 @@
         }
     }
 
-    .comments-panel { /* TODO : Optimize color, fix overflow*/
+    .comments-panel { /* TODO : fix overflow*/
         width: 90%;
         display: flex;
         flex-direction: column;
@@ -209,7 +212,7 @@
                     color: white;
                     background-color: var(--secondary-color);
                     font-size: large;
-                    font-family: "Jersey 10", sans-serif; /* TODO: Font style into var() */
+                    font-family: var(--font-family);
                     font-style: normal;
                     width: 100%;
                     padding: 4px 8px;
