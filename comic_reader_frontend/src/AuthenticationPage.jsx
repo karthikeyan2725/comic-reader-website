@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom"
 import axios from "axios"
 import { useEffect, useState } from "react"
+import { jwtDecode } from "jwt-decode"
 
 import "./AuthenticationPage.css"
 
@@ -17,7 +18,11 @@ function AuthenticationPage({type}){ // TODO: Redesign UI
         if(type == "sign-up"){ // TODO: Move to seperate function
             try{
                 const response = await axios.post("http://localhost:8080/user/sign-up", {"email" : email, "password" : password})
-                if(response.status == 200) console.log("Sign Up Success")
+                if(response.status == 200) {
+                    console.log("Sign Up Success")
+                    sessionStorage.setItem("token", response.data) // TODO: Refactor
+                    console.log(sessionStorage.getItem("token"))               
+                }
             }
             catch (err){
                 console.log("Sign Up Fail")
@@ -27,7 +32,10 @@ function AuthenticationPage({type}){ // TODO: Redesign UI
         if(type == "sign-in"){
             try{
                 const response = await axios.post("http://localhost:8080/user/sign-in", {"email" : email, "password" : password})
-                if(response.status == 200) console.log("Sign In Success")
+                if(response.status == 200) {
+                    console.log("Sign In Success")
+                    sessionStorage.setItem("token", response.data) // TODO: Refactor
+                }
             }
             catch (err){
                 console.log("Sign In Fail " + err.status)

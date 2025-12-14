@@ -124,12 +124,16 @@ function ChapterListingPage(){
                     <div className="comment-bar">
                         <div className="profile-comment-row">
                             <img className="profile-pic" src="https://www.shutterstock.com/image-vector/vector-profile-icon-260nw-380603071.jpg"></img>
-                            <input className="comment-textfield" type="text" placeholder="Enter Your comment..." value = {comment} onChange={(event)=>{setComment(event.target.value)}}/>
+                            <input className="comment-textfield" type="text" placeholder={(sessionStorage.getItem("token") != null) ? "Enter Your comment..." : "Sign In To comment"} disabled = {(sessionStorage.getItem("token") == null)} value = {comment} onChange={(event)=>{setComment(event.target.value)}}/>
                         </div>
-                        <div className="comment-cancel-row">
-                            <div className="cancel" onClick={()=>{setComment("")}}>Cancel</div> {/* Cancel -> clear */}
-                            <div className="comment" onClick={()=>{postComicComment()}}>Comment</div>
-                        </div>
+                        {(sessionStorage.getItem("token") != null) ?
+                             <div className="comment-cancel-row">
+                                <div className="cancel" onClick={()=>{setComment("")}}>Cancel</div> {/* Cancel -> clear */}
+                                <div className="comment" onClick={()=>{postComicComment()}}>Comment</div>
+                            </div>
+                            :
+                            null
+                        }
                     </div>
             </div>
         </div>
