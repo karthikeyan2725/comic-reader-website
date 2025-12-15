@@ -17,7 +17,6 @@ import java.util.List;
 import java.util.Optional;
 
 @Slf4j
-@CrossOrigin("http://localhost:5173") // TODO: Make Global or use Application Yaml
 @RestController
 @RequestMapping("comic")
 public class ComicController {

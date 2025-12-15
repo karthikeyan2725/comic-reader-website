@@ -1,22 +1,18 @@
 package com.karthikeyan2527.comic_reader_backend.service;
 
+import com.karthikeyan2527.comic_reader_backend.JwtUtil;
 import com.karthikeyan2527.comic_reader_backend.dto.CommentDTO;
 import com.karthikeyan2527.comic_reader_backend.dto.CommentPostDTO;
 import com.karthikeyan2527.comic_reader_backend.entity.Comment;
 import com.karthikeyan2527.comic_reader_backend.entity.User;
 import com.karthikeyan2527.comic_reader_backend.repository.CommentDao;
 import com.karthikeyan2527.comic_reader_backend.repository.UserDao;
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jws;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.security.Keys;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,13 +21,16 @@ import java.util.Optional;
 public class CommentService {
 
     @Autowired
-    CommentDao commentDao;
+    private CommentDao commentDao;
 
     @Autowired
-    UserDao userDao;
+    private UserDao userDao;
 
     @Autowired
-    ModelMapper modelMapper;
+    private ModelMapper modelMapper;
+
+    @Autowired
+    private JwtUtil jwtUtil;
 
     public List<CommentDTO> getComicComments(Integer comicId){
         return commentDao.findAllByCommentTypeAndCommentEntityId("comic", comicId).stream()
@@ -41,14 +40,10 @@ public class CommentService {
     public Optional<CommentDTO> saveComment(CommentPostDTO commentPostDTO){
 
         if(commentPostDTO.getToken() == null) return Optional.empty();
-        log.info("1");
-        byte[] secret = Base64.getDecoder().decode("SGVsbG9UaGlzSXNDb21pY1JlYWRlcldlYnNpdGVNYWRlV2l0aExvdmVCeUthcnRoaWtleWFuQW5kVGhpc0lzVXNlZFRvU2lnblRoZUhhc2hPZkpXVA==");
 
-        Claims result = Jwts.parser().verifyWith(Keys.hmacShaKeyFor(secret)).build().parseSignedClaims(commentPostDTO.getToken()).getPayload();
+        Integer userId = jwtUtil.getUserIdFromToken(commentPostDTO.getToken());
 
-        log.info(result.toString());
-
-        Optional<User> optionalUser = userDao.findById(Integer.valueOf(result.getSubject()));
+        Optional<User> optionalUser = userDao.findById(userId);
 
         if(optionalUser.isEmpty()) return Optional.empty();
 
@@ -60,13 +55,11 @@ public class CommentService {
 
         User user = optionalUser.get();
 
-        // TODO: REfactor
         comment.setId(null);
         comment.setUser(user);
         comment.setUpvote(0);
         comment.setDownvote(0);
         comment.setPublishedTime(LocalDateTime.now());
-//        comment.setCommentType("comic"); // TODO: Add enum for comment Type
 
         comment = commentDao.save(comment);
         CommentDTO savedCommentDTO = modelMapper.map(comment, CommentDTO.class);

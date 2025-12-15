@@ -151,7 +151,7 @@ Session Mangement
 RBAC
 Password encoding
 Filterchain
-
+cors.and() + webConfig(CorsRegistry.addMpping) / corsConfigurationSource {UrlCorsConfigurationSource} / CorsFilter Bean
 Security
 1. dependency
 2. Security Configuration : Security FilterChain, Http, request matcher andMatcher  , cors, csrf, 

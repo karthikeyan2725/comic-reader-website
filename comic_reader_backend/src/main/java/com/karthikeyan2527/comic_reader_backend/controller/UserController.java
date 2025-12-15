@@ -1,18 +1,19 @@
 package com.karthikeyan2527.comic_reader_backend.controller;
 
 import com.karthikeyan2527.comic_reader_backend.dto.AuthDTO;
-import com.karthikeyan2527.comic_reader_backend.entity.User;
 import com.karthikeyan2527.comic_reader_backend.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Optional;
 
 @Slf4j
-@CrossOrigin("http://localhost:5173") // TODO: Make Global or use Application Yaml
 @RestController
 @RequestMapping("user")
 public class UserController {
@@ -21,7 +22,7 @@ public class UserController {
     private UserService userService;
 
     @PostMapping("/sign-in")
-    ResponseEntity<?> signInMethod(@RequestBody AuthDTO authDTO) { // TODO: Convert to User/Login DTO
+    ResponseEntity<?> signInMethod(@RequestBody AuthDTO authDTO) {
         Optional<String> optionalToken = userService.signIn(authDTO);
 
         if(optionalToken.isPresent()) return ResponseEntity.ok(optionalToken.get());
@@ -30,7 +31,7 @@ public class UserController {
     }
 
     @PostMapping("/sign-up")
-    ResponseEntity<?> signUpMethod(@RequestBody AuthDTO authDTO){ // TODO: Convert to User/Login DTO
+    ResponseEntity<?> signUpMethod(@RequestBody AuthDTO authDTO){
         // TODO: Handle response for Conflict properly
 
         Optional<String> optionalToken = userService.signUp(authDTO);
