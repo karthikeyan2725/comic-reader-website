@@ -8,6 +8,7 @@ import com.karthikeyan2527.comic_reader_backend.repository.ComicDao;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -26,7 +27,8 @@ public class ChapterService { // TODO : Check if methods could be simplified.
     @Autowired
     private ModelMapper modelMapper;
 
-    private String baseStorageUrl = "https://vnqpkstmadacbnlcvgax.supabase.co/storage/v1/object/public/comic-asia/"; // TODO : Move to application.yaml
+    @Value("${database.storage-url}")
+    private String baseStorageUrl;
 
     public Optional<ChapterDTO> getChapterDetails(Integer chapterId){
         Optional<Chapter> optionalChapter = chapterDao.findById(chapterId);

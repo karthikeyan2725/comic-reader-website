@@ -7,12 +7,12 @@ function Header(){
             <div className = 'logo'>ComicRaven</div>
             <nav className = 'links'> 
                 <ul>
-                    <li><Link className = "link">Home</Link></li> {/* TODO: check if <a> vs <Link> */}
+                    <li><Link className = "link">Home</Link></li> 
                     <li><Link className = "link">Browse</Link></li>
                 </ul>
             </nav>
             <input className = 'search' type='text' placeholder='Search'></input>
-            <div className = 'profile'>P</div>
+            <Link className = 'profile' to="/sign-in">P</Link> {/* Profile Box Handling, sign up redirection */}
         </div>
 }
 

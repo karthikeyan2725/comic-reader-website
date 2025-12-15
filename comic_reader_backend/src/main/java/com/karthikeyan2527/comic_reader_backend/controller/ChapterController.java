@@ -9,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @Slf4j
-@CrossOrigin("http://localhost:5173") // TODO: Make Global or use Application Yaml
 @RestController
 @RequestMapping("chapter")
 public class ChapterController {

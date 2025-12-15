@@ -1,17 +1,19 @@
 package com.karthikeyan2527.comic_reader_backend;
 
 import com.karthikeyan2527.comic_reader_backend.entity.Comic;
+import com.karthikeyan2527.comic_reader_backend.entity.Comment;
 import com.karthikeyan2527.comic_reader_backend.entity.Genre;
-import com.karthikeyan2527.comic_reader_backend.repository.ChapterDao;
-import com.karthikeyan2527.comic_reader_backend.repository.ComicDao;
-import com.karthikeyan2527.comic_reader_backend.repository.GenreDao;
+import com.karthikeyan2527.comic_reader_backend.entity.User;
+import com.karthikeyan2527.comic_reader_backend.repository.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Component
 @Slf4j
@@ -26,10 +28,17 @@ public class BasicDatabaseCommandLineRunner implements CommandLineRunner {
     @Autowired
     GenreDao genreDao;
 
+    @Autowired
+    UserDao userDao;
+
+    @Autowired
+    CommentDao commentDao;
+
     @Override
     public void run(String... args) throws Exception {
 
         // initializeDB();
+        // insertComments();
     }
 
     private void initializeDB(){
@@ -180,5 +189,19 @@ public class BasicDatabaseCommandLineRunner implements CommandLineRunner {
                                 comic.setGenres(genreDao.findAllById(kaijuNo8).stream().toList()))
                         .toList()
         );
+    }
+
+    private void insertComments(){
+        Optional<User> optionalUser = userDao.findById(1);
+
+        if(optionalUser.isEmpty()) return;
+
+        User user = optionalUser.get();
+
+        log.info("Found user with id = 1 " + user.toString());
+        Comment comment = new Comment(null, user, "comic", 1956, "All Hail Mina Sama.... <3 XD.", 10, 0, LocalDateTime.now());
+        comment = commentDao.save(comment);
+
+        log.info("Saved Comment : " + comment);
     }
 }

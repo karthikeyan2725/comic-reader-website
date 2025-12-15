@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import axios from 'axios'
 
 import ChapterBar from "./ChapterBar"
@@ -17,7 +18,7 @@ function ReadingPage(){
     const imgExtension = ".webp"
     const imgNamePadSize = 3
 
-    async function getChapter() { // TODO: Refactor again
+    async function getChapter() { 
         try{
             var response = await axios.get("http://localhost:8080/chapter/" + chapterId)
 
@@ -56,7 +57,7 @@ function ReadingPage(){
     return <>
         {(chapter != null) ? 
             (<div className = "comic-panel">
-                <h1 className = 'comic-name'>🇬🇧 {chapter.comicName}</h1>
+                <Link className = 'comic-name' to={"/comic/" + chapter.comicId}>🇬🇧 {chapter.comicName}</Link> {/* TODO: Update language Emoji */}
                 <ChapterBar chapter = {chapter}/>
                 <div className = 'comic-pages'>
                     {imgUrls.map((imgUrl, i) => 

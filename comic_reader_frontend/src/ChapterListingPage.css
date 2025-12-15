@@ -1,15 +1,14 @@
-.comic-listing-page{
-
+.comic-listing-page {
+    margin: 80px 0px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 80px 0px;
+    gap: 20px;
 
     .comic-details {
         width: 80%;
         display: flex;
         flex-direction: row;
-        align-items: center;
         gap: 30px;
         min-width: 0;
         
@@ -20,7 +19,6 @@
 
         .text-pane {
             color : var(--tertiary-color);
-            
             display: flex;
             flex-direction: column;
             gap : 8px;
@@ -28,7 +26,7 @@
             .comic-name {
                 margin-bottom: 8px;
                 -webkit-text-stroke: var(--primary-color) 8px;
-                paint-order: stroke fill; /* TODO: Use paint over globally*/
+                paint-order: stroke fill; 
             }
             
             .staff-list {
@@ -46,7 +44,6 @@
             .genre-list {
                 width: fit-content;
                 padding: 8px;
-                /* border: var(--primary-color) 1px solid; TODO: Check if this is good  */
 
                 display: flex;
                 flex-wrap: wrap;
@@ -59,8 +56,7 @@
                 }
             }
 
-            .desciption {
-                /* TODO: Handle Overflow of text*/
+            .description {
                 text-align: justify;
             }
         }
@@ -91,10 +87,17 @@
                 border: 1px var(--tertiary-color) solid;
                 
                 .chapter-link{
-                    display: block;
                     font-size: larger;
                     color: var(--tertiary-color);
                     padding: 2px 8px;
+                    text-decoration: none;
+
+                    display: flex;
+                    justify-content: space-between;
+
+                    .read-published {
+                        text-decoration: underline;
+                    }
                 }
 
             }
@@ -104,6 +107,136 @@
                 
                 .chapter-link{
                     color: var(--secondary-color);
+                }
+            }
+        }
+    }
+
+    .comments-panel { /* TODO : fix overflow*/
+        width: 90%;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        
+        .panel-header {
+            color: var(--tertiary-color);
+        }
+        
+        .comments-list {
+            list-style-type: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            
+
+            .comment-item {
+                width: 100%;
+                border-left: var(--primary-color) 6px solid;
+                padding: 2px 10px;
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+
+                .profile-vote-row{
+                    display: flex;
+                    justify-content: space-between;
+                    
+                    .profile {
+                        display: flex;
+                        align-items: center;
+                        gap: 10px;
+
+                        .profile-pic {
+                            width: 40px;
+                            height: 40px;
+                        }
+
+                        .name-time-section {
+                            .name{
+                                color: white; 
+
+                            }
+
+                            .comment-time {
+                                color: var(--tertiary-color);
+                            }
+                        }
+                    }
+
+                    .vote-section {
+                        color : var(--tertiary-color);
+                        display: flex;
+                        gap: 10px;
+                        
+                        .upvote-num {
+                            color: white;
+                        }
+
+                        .vote-buttons {
+                            display: flex;
+                            gap: 4px;
+                            
+                            .vote:hover {
+                                text-decoration: underline;
+                            }
+                        }
+                    }
+                }
+
+                .comment-text{
+                    color: white; 
+                }
+            }
+        }
+
+        .comment-bar {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 10px;
+
+            .profile-comment-row {
+                width: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 10px;
+
+                .profile-pic {
+                    width: 30px;
+                    height: 30px;;
+                }
+                
+                .comment-textfield {
+                    color: white;
+                    background-color: var(--secondary-color);
+                    font-size: large;
+                    font-family: var(--font-family);
+                    font-style: normal;
+                    width: 100%;
+                    padding: 4px 8px;
+                    border: 2px var(--tertiary-color) solid;
+                    box-shadow: 8px 8px var(--primary-color);
+                }
+
+                .comment-textfield:placeholder-shown{
+                    color: var(--tertiary-color);
+                }
+
+                .comment-textfield:hover {
+                    box-shadow: 6px 6px var(--primary-color);
+                }
+            }
+            
+            .comment-cancel-row {
+                color: var(--tertiary-color);
+                display: flex;
+                gap: 10px;
+
+                .cancel:hover, .comment:hover{
+                    color: white;
+                    text-decoration: underline;
                 }
             }
         }
