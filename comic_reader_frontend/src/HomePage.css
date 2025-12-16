@@ -1,67 +1,64 @@
 .home-page {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
 
     .hot-panel{
-        color: var(--tertiary-color);
-        width: 90%;
+        width: 80%;
+        margin: 30px 0px;
         display: flex;
         flex-direction: column;
-        margin: 50px 0px;
+        overflow: hidden;
+        gap: 20px;
         
         .hot-panel-items {
+            width: 100%;
             display: flex;
-            flex-direction: row;
-            scroll-snap-type: x mandatory;   
-            overflow-y: hidden;
-            scrollbar-width: none;
-
+            
             .hot-panel-item {
-                flex: 1 0 100%;
-                scroll-snap-align: start;
-                scroll-snap-stop: always;
-                margin: 80px;
+                flex: 0 0 100%;
+                transition: transform 600ms ease-in-out;
+
+                --cover-art-height : 300px;
+                --cover-art-width : 200px;
+                --cover-art-border : 6px;
+                --cover-art-lr-margin : 16px;
 
                 .comic-name {
+                    color: var(--tertiary-color);
                     -webkit-text-stroke: var(--primary-color) 8px;
                     paint-order: stroke fill; 
-                    margin-left: calc(200px + 32px);
+                    margin-left: calc(var(--cover-art-width) + calc(calc(var(--cover-art-border) + var(--cover-art-lr-margin)) * 2));
                     padding: 4px;
                 }
 
                 .info{
                     background-color: var(--tertiary-color);
-                    /* margin: 60px 0; */
                     display: flex;
                     position: relative;
                     align-items: center;
 
-                    --cover-art-height : 300px;
-                    --cover-art-width : 200px;
-
                     .cover-art {
+                        flex: 0 0 var(--cover-art-width);
                         position: absolute;
                         height: var(--cover-art-height) ;
-                        width: var(--cover-art-width);
-                        border: 6px var(--secondary-color) solid;
+                        border: var(--cover-art-border) var(--secondary-color) solid;
                         box-shadow: 0px 0px 10px black;
-                        margin: 0px 10px;
+                        margin: 0px var(--cover-art-lr-margin);
                     }
 
                     .cover-art-spacer {
-                        /* height: calc(var(--cover-art-height) - 50px); */
-                        width: var(--cover-art-width);
-                        border: 6px transparent solid;
-                        flex-shrink: 0;
-                        margin: 0px 10px;
+                        flex: 0 0 var(--cover-art-width);
+                        border: var(--cover-art-border) transparent solid;
+                        margin: 0px var(--cover-art-lr-margin);
                     }
 
                     .genre-description{
-                        padding: 10px;
+                        margin: 10px;
+
                         .genre-list {
                             font-size: large;
-                            width: fit-content;
-                            padding: 8px;
+                            margin: 8px;
 
                             display: flex;
                             flex-wrap: wrap;
@@ -69,14 +66,15 @@
                             gap : 8px;
 
                             li {
+                                color: var(--tertiary-color);
                                 background-color: var(--secondary-color);
-                                padding: 0px 26px;
-                                margin: 0px 10px;
+                                padding: 0px 20px;
+                                border: var(--primary-color) 3px solid;
                             }
                         }
+
                         .description {
                             color: var(--primary-color);
-                            /* font-size: 1.7em; */
                             text-align: justify;
                         }
                     }
@@ -87,17 +85,18 @@
         .panel-selector {
             display: flex;
             justify-content: center;
-            margin : 10px;
+            align-items: center;
             gap: 10px;
 
             .hot-radio{
-                --size: 10px;
+                --size: 8px;
                 --border: 1px;
                 --background-color: var(--primary-color);
                 --border-color: var(--tertiary-color);
                 --background-color-select: var(--tertiary-color);
                 --border-color-select: var(--tertiary-color);
-                
+                --hover-background-color: var(--secondary-color);
+
                 .outer-circle {
                     background-color: var(--border-color);
                     height: calc(2 * var(--size)); 
@@ -112,9 +111,15 @@
                     }
                 }
 
+                .outer-circle:hover{
+                    .inner-circle{
+                        background-color: var(--hover-background-color);
+                    }
+                }
+
                 .outer-circle-selected {
                     background-color: var(--border-color-select);
-
+                    
                     .inner-circle {
                         background-color: var(--background-color-select);
                     }
