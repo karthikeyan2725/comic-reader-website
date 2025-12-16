@@ -159,3 +159,6 @@ Security
     * UserDetailsService (loadbyname) implementation, granted authority if needed
     * Authentication Manager builder bean (Also check providers)
     * Inject AuthenticationManager In Controller, .authenticate method(UsernamePasswordAuthenticationToken), add to security context holder.
+
+TODO:
+homepage
