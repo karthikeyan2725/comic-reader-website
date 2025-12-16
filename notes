@@ -169,3 +169,8 @@ scrollIntoView(Js)
 aspect ratio
 onWheel
 onMouseEnter, onMouseExit
+preventDefault
+useNavigate
+updater function
+[] for replacing variable name in object {...obj, [variable_name] : value}
+[...Array(popularComics.length).keys()].map((n, i)=>

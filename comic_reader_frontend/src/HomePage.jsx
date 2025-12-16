@@ -1,42 +1,75 @@
 import { useEffect, useState } from "react"
+import { useNavigate } from "react-router-dom";
+import axios from "axios"
 
+import Slider from "./common/Slider";
 import "./HomePage.css"
 
 function HomePage(){
 
+    const devMode = false
     const devCoverUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ7QNFJ3J1j40v63v45mHPdHN7EE9djaHSEBg&s"
-    const devComicGenres = [{"name":"Gore"},{"name":"Monster"},{"name":"Post Apocalyptic"},{"name":"Friendship"},{"name":"Hardwork"}]
-    const devComicDescription = "The story follows Kafka Hibino who, after ingesting a parasitic creature, gains the ability to turn into a kaiju and now must navigate using his power while trying to become part of an organization that eliminates kaiju to fulfill a promise he made with a childhood friend. Matsumoto wrote the outline of the story of Kaiju No. 8 near the end of 2018 making it his second series for the magazine. The series was heavily influenced by Japanese tokusatsu media, especially Ultraman, while the author's struggles in the manga industry served as a basis for the main character's backstory."
-    
+
+    const navigate = useNavigate()
+
     const [panelNum, setPanelNum] = useState(0)
-    
-    function handleHotScroll(event){
-        const numPanel = 4
-        if(event.deltaY > 0 && panelNum < numPanel) setPanelNum(panelNum + 1)
-        if(event.deltaY < 0 && panelNum > 0) setPanelNum(panelNum - 1)            
+    const [popularComics, setPopularComics] = useState([])
+
+    const [sliderData, setSliderData] = useState({})
+    const sliderGenres = ["Action", "Comedy", "Post Apocalyptic"]
+
+    function handleHotScroll(event){ // TODO: Wheel event not stopping page scroll
+        // event.preventDefault()
+        // const numPanel = 4
+        // if(event.deltaY > 0 && panelNum < numPanel) setPanelNum(panelNum + 1)
+        // if(event.deltaY < 0 && panelNum > 0) setPanelNum(panelNum - 1)
+    }
+
+    async function fetchPopularComics(){
+        try{
+            const response = await axios.get("http://localhost:8080/comic/popular")
+            setPopularComics(response.data)
+        } catch (error){
+            console.error("Failed to fetch popular comics : " + error.status)
+        }
+    }
+
+    async function fetchSliderComics(genre){ 
+        try {
+            const response = await axios.get("http://localhost:8080/comic/comics?genre=" + genre)
+            setSliderData(prevData => ({...prevData, [genre] : response.data}))
+        } catch (error) {
+            console.error("Failed to fetch comics of genre "+ genre + " :" + error.status)
+        }
     }
 
     useEffect(()=>{
-        const interval = setInterval(()=>{setPanelNum(((panelNum + 1) % 5))}, 5000)
+        fetchPopularComics()
+        sliderGenres.forEach((genre)=>{fetchSliderComics(genre)})
+    }, [])
+
+    useEffect(()=>{
+        const interval = setInterval(()=>{setPanelNum(((panelNum + 1) % 5))}, 10000)
         return ()=>{clearInterval(interval)}
     })
             
     return <div className="home-page">
+                
                 <div className="hot-panel" onWheel={handleHotScroll}>
-                    <div  className="hot-panel-items">
-                        {[0,1,2,3,4].map((item, i)=>
-                            <div className="hot-panel-item" key={i} style={{transform: "translateX(calc(-100% * " + panelNum +"))"}}>
-                                <h1 className="comic-name">{"Kaiju No 8"}</h1>
+                    <div className="hot-panel-items">
+                        {popularComics.map((item, i)=>
+                            <div className="hot-panel-item" key={"hot-panel-item" + i}  onClick={()=>{navigate("/comic/" + item.id)}} style={{transform: "translateX(calc(-100% * " + panelNum +"))"}}> {/* Add Navigation to page on click */}
+                                <h1 className="comic-name">{item.name}</h1>
                                 <div className="info">
-                                    <img className="cover-art" src={devCoverUrl}></img>
+                                    <img className="cover-art" src={(devMode) ? devCoverUrl : item.coverArtUrl}></img> {/* TODO: Make Image size uniform*/}
                                     <div className="cover-art-spacer"></div>
                                     <div className="genre-description">
                                         <ul className = "genre-list">
-                                            {devComicGenres.map((genre, i)=>
+                                            {item.genres.map((genre, i)=>
                                                 <li><h3 className="genre-bar" key={i}>{genre.name}</h3></li> /* TODO: convert to genre component, also in chapter listis */
                                             )}
                                         </ul>
-                                        <h2 className="description">{devComicDescription}</h2>
+                                        <h2 className="description">{item.description}</h2> {/* TODO: handle text overflow */}
                                     </div>
                                 </div>
                             </div>
@@ -44,8 +77,8 @@ function HomePage(){
                     </div>
                    
                     <div className="panel-selector">
-                        {[0,1,2,3,4].map((n, i)=>
-                            <div className="hot-radio"> {/* Unique Key problem*/}
+                        {[...Array(popularComics.length).keys()].map((n)=>
+                            <div className="hot-radio" key = {"selector-panel-circle" + n}> {/* TODO: Unique Key problem*/}
                                 <div className={"outer-circle" + ((n == panelNum) ? " outer-circle-selected " : "")} onClick={()=>{setPanelNum(n)}}>
                                     <div className="inner-circle"></div>
                                 </div>
@@ -54,9 +87,10 @@ function HomePage(){
                     </div>
                 </div>
 
-                <div className="">
-
-                </div>
+                {Object.keys(sliderData).map((key)=>
+                    <Slider name={key} data={sliderData[key]}/>
+                )}
+             
             </div>
 }
 

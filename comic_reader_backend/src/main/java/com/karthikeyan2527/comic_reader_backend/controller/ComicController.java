@@ -4,7 +4,6 @@ import com.karthikeyan2527.comic_reader_backend.dto.ChapterDTO;
 import com.karthikeyan2527.comic_reader_backend.dto.ComicDTO;
 import com.karthikeyan2527.comic_reader_backend.dto.CommentDTO;
 import com.karthikeyan2527.comic_reader_backend.dto.CommentPostDTO;
-import com.karthikeyan2527.comic_reader_backend.entity.Comment;
 import com.karthikeyan2527.comic_reader_backend.service.ComicService;
 import com.karthikeyan2527.comic_reader_backend.service.CommentService;
 import lombok.extern.slf4j.Slf4j;
@@ -40,6 +39,20 @@ public class ComicController {
         return comicService.getComicDetail(comicId)
                 .map(ResponseEntity::ok)
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+    @GetMapping("/popular")
+    ResponseEntity<List<ComicDTO>> getPopularComics(){ // TODO: add query to get count and pagination
+        List<ComicDTO> comicDTOS = comicService.getPopularComics();
+
+        return ResponseEntity.ok(comicDTOS);
+    }
+
+    @GetMapping("/comics")
+    ResponseEntity<List<ComicDTO>> getComics(@RequestParam("genre") String genre){ // TODO: Use pageable
+        List<ComicDTO> comicDTOS = comicService.getComicsByGenre(genre);
+
+        return ResponseEntity.ok(comicDTOS);
     }
 
     @GetMapping("/{comic_id}/comments")

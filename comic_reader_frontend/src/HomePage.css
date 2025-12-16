@@ -2,6 +2,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    gap: 10px;
 
     .hot-panel{
         width: 80%;
@@ -41,7 +42,9 @@
                     .cover-art {
                         flex: 0 0 var(--cover-art-width);
                         position: absolute;
-                        height: var(--cover-art-height) ;
+                        /* height: var(--cover-art-height) ; */
+                        aspect-ratio: 2/3;
+                        width: var(--cover-art-width);
                         border: var(--cover-art-border) var(--secondary-color) solid;
                         box-shadow: 0px 0px 10px black;
                         margin: 0px var(--cover-art-lr-margin);
@@ -75,10 +78,16 @@
 
                         .description {
                             color: var(--primary-color);
+                            height: 200px;
                             text-align: justify;
+                            overflow: scroll;
                         }
                     }
                 }
+            }
+
+            .hot-panel-item:hover {
+                cursor: pointer;
             }
         }
         
@@ -111,12 +120,6 @@
                     }
                 }
 
-                .outer-circle:hover{
-                    .inner-circle{
-                        background-color: var(--hover-background-color);
-                    }
-                }
-
                 .outer-circle-selected {
                     background-color: var(--border-color-select);
                     
@@ -124,6 +127,10 @@
                         background-color: var(--background-color-select);
                     }
                 }
+            }
+
+            .hot-radio:hover{
+                cursor: pointer;
             }
         }
     }
