@@ -1,9 +1,12 @@
+import { useNavigate } from "react-router-dom"
 import "./Slider.css"
 
 function Slider({name, data}){ // TODO refactor:
 
     var devMode = false
     const devCoverUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ7QNFJ3J1j40v63v45mHPdHN7EE9djaHSEBg&s"
+
+    const navigate = useNavigate()
 
     return <div className="slider-panel">
             <h1 className="slider-title">{name}</h1>
