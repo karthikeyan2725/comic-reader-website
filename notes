@@ -159,3 +159,18 @@ Security
     * UserDetailsService (loadbyname) implementation, granted authority if needed
     * Authentication Manager builder bean (Also check providers)
     * Inject AuthenticationManager In Controller, .authenticate method(UsernamePasswordAuthenticationToken), add to security context holder.
+
+TODO:
+homepage
+
+OnWheel
+Flex: 0 0 100;
+scrollIntoView(Js)
+aspect ratio
+onWheel
+onMouseEnter, onMouseExit
+preventDefault
+useNavigate
+updater function
+[] for replacing variable name in object {...obj, [variable_name] : value}
+[...Array(popularComics.length).keys()].map((n, i)=>

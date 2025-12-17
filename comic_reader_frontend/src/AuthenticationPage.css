@@ -1,5 +1,12 @@
 .auth-page {
-    margin-top: 50px;
+    --header-height : 83px; /* TODO: Move header Height to some Top Level file */
+    height: calc(100% - var(--header-height));
+
+    background-image: url("/public/bg_1.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+
     display: flex;
     align-items: center;
     justify-content: center;

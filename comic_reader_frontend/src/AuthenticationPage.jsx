@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import axios from "axios"
 import { useState } from "react"
 
@@ -9,14 +9,19 @@ function AuthenticationPage({type}){
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
 
+    const navigate = useNavigate()
+
     async function onSubmitHandler(event){
 
         event.preventDefault()
 
+        var sucess = false;
+        
         if(type == "sign-up"){ 
             try{
                 const response = await axios.post("http://localhost:8080/user/sign-up", {"email" : email, "password" : password}) // TODO: Encrypt Password
                 if(response.status == 200) sessionStorage.setItem("token", response.data) 
+                success = true
             } catch (err){
                 console.error("Sign Up Failed:" + err.status)
             }
@@ -26,10 +31,13 @@ function AuthenticationPage({type}){
             try{
                 const response = await axios.post("http://localhost:8080/user/sign-in", {"email" : email, "password" : password})
                 if(response.status == 200) sessionStorage.setItem("token", response.data) 
+                    sucess = true
             } catch (err){
                 console.error("Sign In Failed:" + err.status)
             }
         }
+
+        if(sucess == true) navigate("/home") // TODO: navigate back to page from where sign in clicked
     }
 
     return <div className="auth-page">

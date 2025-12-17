@@ -66,4 +66,9 @@ public class CommentService {
 
         return Optional.of(savedCommentDTO);
     }
+
+    public List<CommentDTO> getChapterComments(Integer chapterId) {
+        return commentDao.findAllByCommentTypeAndCommentEntityId("chapter", chapterId).stream()
+                .map((comment)-> modelMapper.map(comment, CommentDTO.class)).toList();
+    }
 }
