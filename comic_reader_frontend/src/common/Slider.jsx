@@ -3,7 +3,7 @@ import "./Slider.css"
 
 function Slider({name, data}){ // TODO refactor:
 
-    var devMode = false
+    var devMode = true
     const devCoverUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ7QNFJ3J1j40v63v45mHPdHN7EE9djaHSEBg&s"
 
     const navigate = useNavigate()

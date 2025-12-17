@@ -3,6 +3,10 @@
     padding: 0;
 }
 
+#root, html, body{
+    height: 100vh !important;
+}
+
 body {
     background-color: var(--secondary-color);
     font-family: var(--font-family);

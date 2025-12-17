@@ -5,6 +5,7 @@ import axios from 'axios'
 
 import ChapterBar from "./ChapterBar"
 import Slider from "./common/Slider"
+import CommentPanel from "./common/CommentPanel"
 import './ReadingPage.css'
 
 function ReadingPage(){
@@ -72,7 +73,7 @@ function ReadingPage(){
         }
     }, [chapter])
 
-    return <>
+    return <div className='reading-page'>
         {(chapter != null) ? 
             (<div className = "comic-panel">
                 <Link className = 'comic-name' to={"/comic/" + chapter.comicId}>🇬🇧 {chapter.comicName}</Link> {/* TODO: Update language Emoji */}
@@ -90,10 +91,12 @@ function ReadingPage(){
             (<div></div>) // TODO : Add image loading    
         }
 
+        <CommentPanel entityType={"chapter"} entityId={chapterId}></CommentPanel>
+
         {Object.keys(sliderData).map((key)=>
             <Slider name={key} data ={sliderData[key]}/>
         )}
-    </>
+    </div>
 }
 
 export default ReadingPage

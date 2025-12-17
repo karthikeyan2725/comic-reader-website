@@ -7,7 +7,7 @@ import "./HomePage.css"
 
 function HomePage(){
 
-    const devMode = false
+    const devMode = true
     const devCoverUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ7QNFJ3J1j40v63v45mHPdHN7EE9djaHSEBg&s"
 
     const navigate = useNavigate()
