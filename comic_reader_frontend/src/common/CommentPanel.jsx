@@ -6,12 +6,14 @@ import "./CommentPanel.css"
 
 function CommentPanel({entityType, entityId}){
     
+    const baseUrl = import.meta.env.VITE_comic_api_url
+
     const [comments, setComments] = useState([])
     const [comment, setComment] = useState("")
 
     async function getComments(){
         try{
-            const response = await axios.get("http://localhost:8080/" + entityType + "/" + entityId + "/comments")
+            const response = await axios.get(baseUrl  + "/" + entityType + "/" + entityId + "/comments")
             
             setComments(response.data)
         } catch (error) {
@@ -21,7 +23,7 @@ function CommentPanel({entityType, entityId}){
 
     async function postComments(){
         try {
-            const response = await axios.post("http://localhost:8080/" + entityType + "/comment", 
+            const response = await axios.post(baseUrl + "/" + entityType + "/comment", 
                 {"token": sessionStorage.getItem("token"),
                 "commentType" : entityType,
                 "commentEntityId" : entityId,
