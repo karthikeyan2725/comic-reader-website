@@ -7,6 +7,8 @@ import "./HomePage.css"
 
 function HomePage(){
 
+    const baseUrl = import.meta.env.VITE_comic_api_url
+
     const devMode = true
     const devCoverUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ7QNFJ3J1j40v63v45mHPdHN7EE9djaHSEBg&s"
 
@@ -27,7 +29,7 @@ function HomePage(){
 
     async function fetchPopularComics(){
         try{
-            const response = await axios.get("http://localhost:8080/comic/popular")
+            const response = await axios.get(baseUrl + "/comic/popular")
             setPopularComics(response.data)
         } catch (error){
             console.error("Failed to fetch popular comics : " + error.status)
@@ -36,7 +38,7 @@ function HomePage(){
 
     async function fetchSliderComics(genre){ 
         try {
-            const response = await axios.get("http://localhost:8080/comic/comics?genre=" + genre)
+            const response = await axios.get(baseUrl + "/comic/comics?genre=" + genre)
             setSliderData(prevData => ({...prevData, [genre] : response.data}))
         } catch (error) {
             console.error("Failed to fetch comics of genre "+ genre + " :" + error.status)

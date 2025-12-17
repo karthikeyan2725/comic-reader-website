@@ -1,10 +1,12 @@
 import { Link, useNavigate } from "react-router-dom"
 import axios from "axios"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 import "./AuthenticationPage.css"
 
 function AuthenticationPage({type}){
+
+    const baseUrl = import.meta.env.VITE_comic_api_url
 
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
@@ -19,7 +21,7 @@ function AuthenticationPage({type}){
         
         if(type == "sign-up"){ 
             try{
-                const response = await axios.post("http://localhost:8080/user/sign-up", {"email" : email, "password" : password}) // TODO: Encrypt Password
+                const response = await axios.post(baseUrl + "/user/sign-up", {"email" : email, "password" : password}) // TODO: Encrypt Password
                 if(response.status == 200) sessionStorage.setItem("token", response.data) 
                 success = true
             } catch (err){
@@ -29,7 +31,7 @@ function AuthenticationPage({type}){
 
         if(type == "sign-in"){
             try{
-                const response = await axios.post("http://localhost:8080/user/sign-in", {"email" : email, "password" : password})
+                const response = await axios.post(baseUrl + "/user/sign-in", {"email" : email, "password" : password})
                 if(response.status == 200) sessionStorage.setItem("token", response.data) 
                     sucess = true
             } catch (err){

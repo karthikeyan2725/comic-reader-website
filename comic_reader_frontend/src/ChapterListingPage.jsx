@@ -8,18 +8,18 @@ import "./ChapterListingPage.css"
 
 function ChapterListingPage(){
 
+    const baseUrl = import.meta.env.VITE_comic_api_url
+
     var devMode = true
     var devCoverUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ7QNFJ3J1j40v63v45mHPdHN7EE9djaHSEBg&s"
     
     const {comicId} = useParams()
 
     const [comic, setComic] = useState(null)
-    const [comments, setComments] = useState([])
-    const [comment, setComment] = useState("")
 
     async function getComicDetails(){
         try {
-            const response = await axios.get("http://localhost:8080/comic/" + comicId)
+            const response = await axios.get(baseUrl + "/comic/" + comicId)
 
             setComic(response.data)
         }
@@ -28,36 +28,9 @@ function ChapterListingPage(){
         }
     }
 
-    async function getComicComments(){
-        try{
-            const response = await axios.get("http://localhost:8080/comic/" + comicId + "/comments")
-
-            setComments(response.data)
-        } catch {
-            console.error("Failed to retrieve comments for Comic Id : " + comicId)
-        }
-    }
-
-    async function postComicComment(){
-        try {
-            const response = await axios.post("http://localhost:8080/comic/comment", 
-                {"token": sessionStorage.getItem("token"),
-                "commentType" : "comic",
-                "commentEntityId" : comicId,
-                "comment" : comment}
-            )
-
-            setComment("")
-            getComicComments()
-        } catch (err) {
-            console.error("Failed to post comment of user")
-        }
-    }
-
     useEffect(()=>{
         if(comicId != null) {
             getComicDetails()
-            getComicComments()
         }
     }, [comicId])
 

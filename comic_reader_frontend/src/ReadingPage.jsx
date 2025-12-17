@@ -10,6 +10,8 @@ import './ReadingPage.css'
 
 function ReadingPage(){
     
+    const baseUrl = import.meta.env.VITE_comic_api_url
+
     var devMode = true
     const devCoverUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ7QNFJ3J1j40v63v45mHPdHN7EE9djaHSEBg&s"
 
@@ -26,7 +28,7 @@ function ReadingPage(){
 
     async function fetchSliderComics(genre){ 
         try {
-            const response = await axios.get("http://localhost:8080/comic/comics?genre=" + genre)
+            const response = await axios.get(baseUrl + "/comic/comics?genre=" + genre)
             setSliderData(prevData => ({...prevData, [genre] : response.data}))
         } catch (error) {
             console.error("Failed to fetch comics of genre "+ genre + " :" + error.status)
@@ -39,7 +41,7 @@ function ReadingPage(){
 
     async function getChapter() { 
         try{
-            var response = await axios.get("http://localhost:8080/chapter/" + chapterId)
+            var response = await axios.get(baseUrl + "/chapter/" + chapterId)
 
             if(!devMode) setChapter(response.data)
             
