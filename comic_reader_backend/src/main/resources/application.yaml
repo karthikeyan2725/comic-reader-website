@@ -3,9 +3,9 @@ spring:
     name: comic_reader_backend
 
   datasource:
-    url: jdbc:postgresql://localhost:5432/dev
-    username: postgres
-    password: 12355
+    url: ${COMIC_DATABASE_URL}
+    username: ${COMIC_DATABASE_USERNAME}
+    password: ${COMIC_DATABASE_PASSWORD}
     driver-class-name: org.postgresql.Driver
   jpa:
     properties.hibernate.dialect: org.hibernate.dialect.PostgreSQLDialect
@@ -15,7 +15,7 @@ spring:
 
 web:
   cors:
-    allowed-origins: "http://localhost:5173"
-  jwt-secret-key: "SGVsbG9UaGlzSXNDb21pY1JlYWRlcldlYnNpdGVNYWRlV2l0aExvdmVCeUthcnRoaWtleWFuQW5kVGhpc0lzVXNlZFRvU2lnblRoZUhhc2hPZkpXVA=="
+    allowed-origins: ${ALLOWED_ORIGINS}
+  jwt-secret-key: ${JWT_SECRET_KEY}
 database:
-  storage-url: "https://vnqpkstmadacbnlcvgax.supabase.co/storage/v1/object/public/comic-asia/"
+  storage-url: ${COMIC_OBJECT_STORAGE_URL}
