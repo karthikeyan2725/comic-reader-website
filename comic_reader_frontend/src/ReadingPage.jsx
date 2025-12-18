@@ -12,7 +12,7 @@ function ReadingPage(){
     
     const baseUrl = import.meta.env.VITE_comic_api_url
 
-    var devMode = true
+    const devMode = (import.meta.env.VITE_dev_mode==="true")
     const devCoverUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ7QNFJ3J1j40v63v45mHPdHN7EE9djaHSEBg&s"
 
     const {chapterId} = useParams();
