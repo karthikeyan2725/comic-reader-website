@@ -18,7 +18,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Slf4j
 @Configuration
-@EnableWebSecurity(debug = true) // TODO: Turn debug off
+//@EnableWebSecurity(debug = true) // TODO: Turn debug off
 public class SecurityConfiguration {
 
     @Value("${web.cors.allowed-origins}")

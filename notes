@@ -174,3 +174,9 @@ useNavigate
 updater function
 [] for replacing variable name in object {...obj, [variable_name] : value}
 [...Array(popularComics.length).keys()].map((n, i)=>
+
+docker tags
+docker push
+docker -e, -p -d -it
+docker login
+github actions
