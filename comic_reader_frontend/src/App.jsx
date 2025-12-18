@@ -20,7 +20,7 @@ function App() {
   return <>
     <Header/>
       <Routes>  
-        <Route path='/home' element={<HomePage/>}></Route>
+        <Route path='/' element={<HomePage/>}></Route>
         <Route path='/chapter/:chapterId' element={<ReadingPage/>}></Route> 
         <Route path='/comic/:comicId' element={<ChapterListingPage/>}></Route>
         <Route path='/links' element={<LinksTestPage/>}></Route>

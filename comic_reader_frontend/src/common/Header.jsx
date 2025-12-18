@@ -7,7 +7,7 @@ function Header(){
             <div className = 'logo'>ComicRaven</div>
             <nav className = 'links'> 
                 <ul>
-                    <li><Link className = "link" to="/home">Home</Link></li> 
+                    <li><Link className = "link" to="/">Home</Link></li> 
                     <li><Link className = "link">Browse</Link></li>
                 </ul>
             </nav>

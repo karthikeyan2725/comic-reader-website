@@ -39,7 +39,7 @@ function AuthenticationPage({type}){
             }
         }
 
-        if(sucess == true) navigate("/home") // TODO: navigate back to page from where sign in clicked
+        if(sucess == true) navigate("/") // TODO: navigate back to page from where sign in clicked
     }
 
     return <div className="auth-page">
