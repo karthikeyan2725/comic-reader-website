@@ -48,6 +48,8 @@ selector, !important (highest priority)
 @import vs link for font (links faster?
 webkit-text-stroke, paint order
 flex, gap,
+static context, zindex
+aspect ratio
 
 html:
 * text field : placeholder

@@ -76,4 +76,11 @@ public class ComicService {
 
         return comicsDTOS;
     }
+
+    public List<ComicDTO> search(String query) {
+        List<Comic> comics = comicDao.findByNameContainingIgnoreCase(query);
+        List<ComicDTO> comicDTOS = comics.stream().map((comic) -> modelMapper.map(comic, ComicDTO.class)).toList();
+
+        return comicDTOS;
+    }
 }

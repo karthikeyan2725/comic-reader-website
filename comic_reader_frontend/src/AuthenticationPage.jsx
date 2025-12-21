@@ -17,7 +17,7 @@ function AuthenticationPage({type}){
 
         event.preventDefault()
 
-        var sucess = false;
+        var success = false;
         
         if(type == "sign-up"){ 
             try{
@@ -33,13 +33,16 @@ function AuthenticationPage({type}){
             try{
                 const response = await axios.post(baseUrl + "/user/sign-in", {"email" : email, "password" : password})
                 if(response.status == 200) sessionStorage.setItem("token", response.data) 
-                    sucess = true
+                success = true
             } catch (err){
                 console.error("Sign In Failed:" + err.status)
             }
         }
 
-        if(sucess == true) navigate("/") // TODO: navigate back to page from where sign in clicked
+        if(success == true) {
+            navigate("/") // TODO: navigate back to page from where sign in clicked
+            window.location.reload()
+        }
     }
 
     return <div className="auth-page">

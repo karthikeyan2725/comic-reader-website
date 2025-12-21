@@ -71,4 +71,12 @@ public class ComicController {
 
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
+
+    @GetMapping("/search")
+    ResponseEntity<?> searchQuery(@RequestParam("query") String query){
+
+        List<ComicDTO> comicDTOS = comicService.search(query);
+
+        return ResponseEntity.ok(comicDTOS);
+    }
 }

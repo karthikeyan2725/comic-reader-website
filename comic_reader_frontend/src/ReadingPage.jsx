@@ -11,21 +11,17 @@ import './ReadingPage.css'
 function ReadingPage(){
     
     const baseUrl = import.meta.env.VITE_comic_api_url
-
     const devMode = (import.meta.env.VITE_dev_mode==="true")
-    const devCoverUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ7QNFJ3J1j40v63v45mHPdHN7EE9djaHSEBg&s"
-
-    const {chapterId} = useParams();
-
-    const [chapter, setChapter] = useState(null);
-    const [imgUrls, setImgUrls] = useState([])
-
-    const [sliderData, setSliderData] = useState({})
     const sliderGenres = ["Action"]
-
     const imgExtension = ".webp"
     const imgNamePadSize = 3
 
+    const [signedIn, setSignedIn] = useState(false)
+    const {chapterId} = useParams();
+    const [chapter, setChapter] = useState(null);
+    const [imgUrls, setImgUrls] = useState([])
+    const [sliderData, setSliderData] = useState({})
+    
     async function fetchSliderComics(genre){ 
         try {
             const response = await axios.get(baseUrl + "/comic/comics?genre=" + genre)
@@ -35,9 +31,15 @@ function ReadingPage(){
         }
     }
 
-    useEffect(()=>{
-        sliderGenres.forEach((genre)=>{fetchSliderComics(genre)})
-    }, [])
+    async function saveToReadHistory(){
+        try{
+            const response = await axios.post(baseUrl + "/user/read", 
+                {token : sessionStorage.getItem("token"), chapterId: chapterId}
+            ) 
+        } catch (error){
+            console.error("Failed to save comic to history : " + error)
+        }
+    }
 
     async function getChapter() { 
         try{
@@ -57,13 +59,26 @@ function ReadingPage(){
     }
 
     useEffect(()=>{
-        if(chapterId != null){
-            getChapter()
-            setImgUrls([])
-        }
-    }, [chapterId])
+        console.log("Basic")
+        setSignedIn(sessionStorage.getItem("token") != null)
+        sliderGenres.forEach((genre)=>{fetchSliderComics(genre)})
+    }, [])
+    
+    useEffect(()=>{
+        if(signedIn) saveToReadHistory() 
+    }, [signedIn])
 
     useEffect(()=>{
+        console.log("ChapterID")
+        if(chapterId != null) {
+            getChapter()
+            if(signedIn) saveToReadHistory() 
+        }
+    }, [chapterId])
+    
+    useEffect(()=>{
+        console.log("Chapter")
+        setImgUrls([])
         if(chapter != null) {
             var imgUrls_ = []
             for(var i = 1; i < chapter.pages; i++){
