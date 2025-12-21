@@ -13,9 +13,10 @@
             overflow: auto;
 
             .slider-item {
-                flex: 0 0 10%;
+                flex: 0 0 fit-content;
                 border-top: 2px var(--tertiary-color) solid;
                 padding-top: 10px;
+                width: fit-content;
                 
                 .cover-art{
                     width: 150px;

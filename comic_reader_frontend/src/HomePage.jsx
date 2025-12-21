@@ -86,7 +86,7 @@ function HomePage(){
                                                 <li><h3 className="genre-bar" key={i}>{genre.name}</h3></li> /* TODO: convert to genre component, also in chapter listis */
                                             )}
                                         </ul>
-                                        <h2 className="description">{item.description}</h2> {/* TODO: handle text overflow */}
+                                        <h2 className="description">{(item.description)}</h2> {/* TODO: handle text overflow */}
                                     </div>
                                 </div>
                             </div>

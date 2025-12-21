@@ -75,13 +75,23 @@
                                 padding: 0px 20px;
                                 border: var(--primary-color) 3px solid;
                             }
+
+                            li:hover{
+                                color: var(--primary-color);
+                                background-color: var(--tertiary-color);
+                            }
                         }
 
                         .description {
                             color: var(--primary-color);
-                            height: 200px;
+                            height: auto;
                             text-align: justify;
-                            overflow: scroll;
+                            padding-right:  20px;
+                            
+                            overflow: hidden;
+                            display: -webkit-box;   
+                            -webkit-line-clamp: 5;
+                            -webkit-box-orient: vertical;
                         }
                     }
                 }
@@ -135,6 +145,9 @@
 
             .hot-radio:hover{
                 cursor: pointer;
+                .inner-circle{
+                    background-color: white;
+                }
             }
         }
     }

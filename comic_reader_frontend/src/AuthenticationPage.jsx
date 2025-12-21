@@ -67,7 +67,7 @@ function AuthenticationPage({type}){
                             <label>Password</label>
                             <input className="input-field" placeholder = "Enter your password..." type="password" onChange={(event)=>{setPassword(event.target.value)}}/>
                         </div>
-                        <ReCAPTCHA sitekey="6LfuhzIsAAAAANYKSgCWFoz-MKeLMALk9qBic72v" onChange={(value)=>{value; setCaptchaAuthenticated(true)}} ref={captcha}/> {/* TODO: Implement Backend captcha check with value from onChange*/}
+                        <ReCAPTCHA sitekey={import.meta.env.VITE_captcha_site_key} onChange={(value)=>{value; setCaptchaAuthenticated(true)}} ref={captcha}/> {/* TODO: Implement Backend captcha check with value from onChange*/}
                         <input className="sign-in-button" type="submit" value={(type == "sign-in") ? "Sign In" : "Sign Up"}/>
                     </form>
 
