@@ -1,21 +1,29 @@
 import { Link, useNavigate } from "react-router-dom"
+import { useRef, useState } from "react"
+import { ToastContainer, toast } from "react-toastify"
+import ReCAPTCHA from "react-google-recaptcha"
 import axios from "axios"
-import { useEffect, useState } from "react"
 
 import "./AuthenticationPage.css"
 
-function AuthenticationPage({type}){
+function AuthenticationPage({type}){ 
 
     const baseUrl = import.meta.env.VITE_comic_api_url
+    const reEmail = new RegExp(".+@gmail\.com")
 
+    const navigate = useNavigate()
+    const captcha = useRef()
+    const [captchaAuthenticated, setCaptchaAuthenticated] = useState(false)
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
 
-    const navigate = useNavigate()
-
-    async function onSubmitHandler(event){
+    async function onSubmitHandler(event){ // TODO: Think if you should move error to panel or toast, style toast, Handle Refill captcha
 
         event.preventDefault()
+
+        if(!reEmail.test(email)) return toast.warn("Please Fill in a valid Email Address")
+        if(password.length < 8) return toast.warn("Password should be atleast 8 characters")
+        if(!captchaAuthenticated) return toast.warn("Please Fill the captcha, Dear reader")
 
         var success = false;
         
@@ -25,6 +33,7 @@ function AuthenticationPage({type}){
                 if(response.status == 200) sessionStorage.setItem("token", response.data) 
                 success = true
             } catch (err){
+                toast.error("Please try a another email to sign up")
                 console.error("Sign Up Failed:" + err.status)
             }
         }
@@ -35,6 +44,7 @@ function AuthenticationPage({type}){
                 if(response.status == 200) sessionStorage.setItem("token", response.data) 
                 success = true
             } catch (err){
+                toast.error("Please provide correct credentials")
                 console.error("Sign In Failed:" + err.status)
             }
         }
@@ -57,14 +67,18 @@ function AuthenticationPage({type}){
                             <label>Password</label>
                             <input className="input-field" placeholder = "Enter your password..." type="password" onChange={(event)=>{setPassword(event.target.value)}}/>
                         </div>
+                        <ReCAPTCHA sitekey="6LfuhzIsAAAAANYKSgCWFoz-MKeLMALk9qBic72v" onChange={(value)=>{value; setCaptchaAuthenticated(true)}} ref={captcha}/> {/* TODO: Implement Backend captcha check with value from onChange*/}
                         <input className="sign-in-button" type="submit" value={(type == "sign-in") ? "Sign In" : "Sign Up"}/>
                     </form>
+
                     {(type=="sign-in") ?
                         <Link className="click-here-link" to="/sign-up">or click here to sign up</Link>
                         :
                         <Link className="click-here-link" to="/sign-in">or click here to sign in</Link>
                     }
                 </div>
+                
+                <ToastContainer position="bottom-left" theme="dark"/>
         </div>
 }
 
