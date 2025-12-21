@@ -11,5 +11,9 @@
 
     .links, .copyright{
         transform: perspective(8px) rotateX(-2deg);
+        
+        a{
+            color: black;
+        }
     }
 }
