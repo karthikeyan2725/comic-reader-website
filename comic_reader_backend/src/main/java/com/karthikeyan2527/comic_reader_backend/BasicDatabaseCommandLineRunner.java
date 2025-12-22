@@ -11,9 +11,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Component
 @Slf4j
@@ -39,6 +37,89 @@ public class BasicDatabaseCommandLineRunner implements CommandLineRunner {
 
         // initializeDB();
         // insertComments();
+        // getAndInsertComics();
+        // updateCoverArtUrls();
+        // saveAndApplyGenres();
+    }
+
+    public void saveAndApplyGenres(){
+        Scanner scanner = new Scanner(System.in);
+        boolean loop = true;
+        int choice;
+        while(loop){
+            System.out.print("> Add Genre (1)/ Apply Genre (2) / Exit (3): ");
+            choice = scanner.nextInt();
+            scanner.nextLine();
+            switch (choice){
+                case 1:
+                    System.out.print("Enter Genre:");
+                    String gString = scanner.nextLine();
+                    Genre newGenre = new Genre(null, gString);
+                    newGenre = genreDao.save(newGenre);
+                    System.out.println("Saved : " + newGenre);
+                    break;
+                case 2:
+                    genreDao.findAll().forEach((genre)->System.out.println(genre.getId() + " " + genre.getName()));
+
+                    System.out.print("Enter ComicID: ");
+                    int comicID = scanner.nextInt();
+                    scanner.nextLine();
+                    Comic comic = comicDao.findById(comicID).get();
+                    System.out.println("Selected : " + comic.getName() + " with " + comic.getGenres());
+                    System.out.print("Enter Number of genres and genre numbers:");
+                    int n = scanner.nextInt();
+                    for(int i = 0; i < n; i++){
+                        int gInt = scanner.nextInt();
+                        comic.getGenres().add(genreDao.findById(gInt).get());
+                    }
+                    scanner.nextLine();
+                    comicDao.save(comic);
+                    break;
+                case 3:
+                    loop = false;
+                    break;
+                default:
+                    System.out.println("Enter Valid Choice...");
+            }
+        }
+    }
+
+    public void getAndInsertComics(){
+        System.out.println("Enter Number of comics:");
+        Scanner scanner = new Scanner(System.in);
+        int n = scanner.nextInt();
+        scanner.nextLine();
+        for(int i = 0; i < n; i++) {
+            Comic comic = new Comic();
+            System.out.println("--- Comic : " + i);
+            System.out.print("Name: ");
+            comic.setName(scanner.nextLine());
+            System.out.print("Author: ");
+            comic.setAuthor(scanner.nextLine());
+            System.out.print("Artist: ");
+            comic.setArtist(scanner.nextLine());
+            System.out.print("Year of release: ");
+            comic.setYearOfRelease(scanner.nextInt());
+            scanner.nextLine();
+            System.out.print("Description: ");
+            comic.setDescription(scanner.nextLine());
+            comic.setLanguage("English");
+            comic.setGenres(List.of());
+            comic.setCoverArtUrl("");
+            comic.setChapterCount(0);
+            comic.setChapters(List.of());
+            System.out.println(comic);
+            System.out.print("Save? (0/1) :");
+            int save = scanner.nextInt();
+            scanner.nextLine();
+            if(save == 0) {
+                System.out.println("Not Saved");
+                continue;
+            }
+            comic = comicDao.save(comic);
+            System.out.println("Saved with ID = "+ comic.getId());
+        }
+        scanner.close();
     }
 
     private void initializeDB(){
@@ -130,7 +211,7 @@ public class BasicDatabaseCommandLineRunner implements CommandLineRunner {
 
     private void updateCoverArtUrls(){
 
-        comicDao.saveAll(comicDao.findAll().stream().peek((comic)->comic.setCoverArtUrl("https://vnqpkstmadacbnlcvgax.supabase.co/storage/v1/object/public/comic-asia/cover_art/" + comic.getId() + ".jpg")).toList());
+        comicDao.saveAll(comicDao.findAll().stream().filter((comic) -> Objects.equals(comic.getCoverArtUrl(), "")).peek((comic)->comic.setCoverArtUrl("https://vnqpkstmadacbnlcvgax.supabase.co/storage/v1/object/public/comic-asia/cover_art/" + comic.getId() + ".jpg")).toList());
     }
 
     private void createAndUpdateComicGenres(){
