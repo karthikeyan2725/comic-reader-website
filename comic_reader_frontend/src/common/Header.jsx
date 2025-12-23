@@ -21,15 +21,12 @@ function Header(){ // TODO: Refactor header
         document.addEventListener("click", (event)=>{
             if(!searchDiv.contains(event.target) && searchDiv != event.target){
                 setSearchActive(false)
-                console.log("Open Search")
             } else {
                 setSearchActive(true)
-                console.log("Close Search")
             }
 
             if(!profileDiv.contains(event.target) && profileDiv != event.target){
                 setProfileActive(false)
-                console.log("Open Proflie")
             }
         })
     })

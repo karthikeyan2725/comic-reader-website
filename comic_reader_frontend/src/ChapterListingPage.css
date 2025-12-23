@@ -11,7 +11,10 @@
         flex-direction: row;
         gap: 30px;
         min-width: 0;
-        
+        padding: 10px;
+        box-shadow: inset 0px 0px 100px black;
+        border: 4px solid var(--primary-color);
+
         .cover-art{
             height: 300px;
             width: 200px;
