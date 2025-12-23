@@ -15,6 +15,25 @@ function Header(){ // TODO: Refactor header
     const [searchQuery, setSearchQuery] = useState("")
     const [searchContent, setSearchContent] = useState([])
     
+    useEffect(()=>{
+        const searchDiv = document.getElementById("search")
+        const profileDiv = document.getElementById("profile")
+        document.addEventListener("click", (event)=>{
+            if(!searchDiv.contains(event.target) && searchDiv != event.target){
+                setSearchActive(false)
+                console.log("Open Search")
+            } else {
+                setSearchActive(true)
+                console.log("Close Search")
+            }
+
+            if(!profileDiv.contains(event.target) && profileDiv != event.target){
+                setProfileActive(false)
+                console.log("Open Proflie")
+            }
+        })
+    })
+
     async function searchComic(searchQuery){
         if(searchQuery == "") return setSearchContent([])
 
@@ -42,7 +61,7 @@ function Header(){ // TODO: Refactor header
                     <li><Link className = "link" onClick={()=>setSearchQuery("")}>Browse</Link></li>
                 </ul>
             </nav>
-            <div className="search"> {/* TODO: make outside click only to disable search */}
+            <div id="search"> {/* TODO: make outside click only to disable search */}
                 <input className = 'bar' type='text' placeholder='Search' onClick={()=>{setSearchActive(true)}} onChange={(event)=>{setSearchQuery(event.target.value)}} value={searchQuery}></input>
                 {(searchActive) ? 
                     <ul className="search-items">
@@ -52,7 +71,7 @@ function Header(){ // TODO: Refactor header
                     </ul>
                     : null}
             </div>
-            <div className = 'profile' to={(signedIn) ? null : "/sign-in" } onClick={()=>{(signedIn) ? setProfileActive(!profileActive) : navigate("/sign-in");}}>
+            <div id = 'profile' to={(signedIn) ? null : "/sign-in" } onClick={()=>{(signedIn) ? setProfileActive(!profileActive) : navigate("/sign-in");}}>
                 <h4>{(signedIn) ? "P" : "U"}</h4>
                 <div className="profile-drop-down" style={{"display": (profileActive) ? "block" : "none"}} onClick={()=>{sessionStorage.removeItem("token"); setSignedIn(false); setProfileActive(false); window.location.reload()}}>Sign out</div> {/* TODO: check if you should reload page*/}
             </div> {/* Profile Box Handling, sign up redirection */}

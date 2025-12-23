@@ -10,7 +10,7 @@ function HomePage(){
     const baseUrl = import.meta.env.VITE_comic_api_url
     const devMode = (import.meta.env.VITE_dev_mode==="true")
     const devCoverUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ7QNFJ3J1j40v63v45mHPdHN7EE9djaHSEBg&s"
-    const sliderGenres = ["Action", "Comedy", "Post Apocalyptic"]
+    const sliderGenres = ["Action", "Comedy", "Drama"]
     const hotPanelSpeedInSeconds = 10
 
     const navigate = useNavigate()
@@ -20,10 +20,27 @@ function HomePage(){
     const [readingHistory, setReadingHistory] = useState([]) // TODO: Move to sliderData? Or make new component style for reading list
 
     function handleHotScroll(event){ // TODO: Wheel event not stopping page scroll, refactor to panel
-        // event.preventDefault()
+        event.preventDefault()
         // const numPanel = 4
-        // if(event.deltaY > 0 && panelNum < numPanel) setPanelNum(panelNum + 1)
-        // if(event.deltaY < 0 && panelNum > 0) setPanelNum(panelNum - 1)
+        // if(event.deltaY > 0 && hotPanel.selected < hotPanel.comics.length-1) setHotPanel(s=>({...s, "selected" : s.selected + 1}))
+        // if(event.deltaY < 0 && hotPanel.selected > 0) setHotPanel(s=>({...s, "selected" : s.selected - 1}))
+    }
+
+    // useEffect(()=>{
+    //     document.getElementsByClassName("hot-panel")[0].onwheel = function(){ return false; }
+    // }, [])
+
+    function handleHover(event, i){
+        const coverArtDiv = document.getElementById("cover-art-" + i).getBoundingClientRect()
+        const x = (event.clientX - coverArtDiv.x) - (coverArtDiv.width/2) 
+        const y = (event.clientY - coverArtDiv.y) - (coverArtDiv.height/2)
+        const rotationY = 20 * (x/(coverArtDiv.width/2))
+        const rotationX = -30 * (y/(coverArtDiv.height/2))
+        document.getElementById("cover-art-" + i).style.transform = "perspective(1000px) rotateX(" + rotationX +"deg) rotateY(" + rotationY + "deg)"
+    }
+
+    function handleMouseLeave(i){
+        document.getElementById("cover-art-" + i).style.transform = ""
     }
 
     async function fetchPopularComics(){
@@ -78,7 +95,7 @@ function HomePage(){
                             <div className="hot-panel-item" key={"hot-panel-item" + i}  onClick={()=>{navigate("/comic/" + item.id)}} style={{transform: "translateX(calc(-100% * " + hotPanel.selected +"))"}}> {/* Add Navigation to page on click */}
                                 <h1 className="comic-name">{item.name}</h1>
                                 <div className="info">
-                                    <img className="cover-art" src={(devMode) ? devCoverUrl : item.coverArtUrl}></img> {/* TODO: Make Image size uniform*/}
+                                    <img className="cover-art" id={"cover-art-" + i} onMouseMove={(event)=>handleHover(event, i)} onMouseLeave={(event)=>handleMouseLeave(i)} src={(devMode) ? devCoverUrl : item.coverArtUrl}></img> {/* TODO: Make Image size uniform*/}
                                     <div className="cover-art-spacer"></div>
                                     <div className="genre-description">
                                         <ul className = "genre-list">
@@ -113,4 +130,4 @@ function HomePage(){
             </div>
 }
 
-export default HomePage;
+export default HomePage
