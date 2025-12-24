@@ -19,9 +19,9 @@ public class CommentDTO {
 
     private String comment;
 
-    private Integer upvote;
-
-    private Integer downvote;
+    private Integer votes;
 
     private LocalDateTime publishedTime;
+
+    private CommentVoteDTO commentVote;
 }

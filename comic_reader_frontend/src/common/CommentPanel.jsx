@@ -11,11 +11,26 @@ function CommentPanel({entityType, entityId}){
     const [comments, setComments] = useState([])
     const [comment, setComment] = useState("")
 
+    async function postCommentVote(commentId, vote){
+        try{
+            const token = sessionStorage.getItem("token")
+            if(token == null) return;
+            const response = await axios.post(baseUrl + "/" + entityType + "/comment/" + commentId + "/vote?token=" + token + "&vote=" + vote)
+            getComments()
+        } catch(error){
+            console.error("Failed to vote comment " + commentId + " : " + error)
+        }
+    }
+
     async function getComments(){
         try{
-            const response = await axios.get(baseUrl  + "/" + entityType + "/" + entityId + "/comments")
+            var response;
+            if(sessionStorage.getItem("token") == null)
+                response = await axios.get(baseUrl  + "/" + entityType + "/" + entityId + "/comments")
+            else 
+                response = await axios.get(baseUrl  + "/" + entityType + "/" + entityId + "/comments?token=" + sessionStorage.getItem("token"))
             
-            setComments(response.data)
+            setComments(response.data.sort((c1, c2) => new Date(c1.publishedTime) - new Date(c2.publishedTime)))
         } catch (error) {
             console.error("Failed to retrieve comments for Comic Id : " + entityId + " Error " + error)
         }
@@ -38,7 +53,6 @@ function CommentPanel({entityType, entityId}){
     }
 
     useEffect(()=>{
-        console.log("entity and entityType changed " + entityId + " " + entityType)
         if(entityId != null && entityType != null) getComments()
     }, [entityId, entityType])
 
@@ -46,26 +60,29 @@ function CommentPanel({entityType, entityId}){
                 <h2 className="panel-header">Comments</h2>
 
                 <ul className="comments-list">
-                        {comments.map((commentItem, i) => 
-                            <li key={i} className="comment-item"> {/* TODO: Key prop not applied? */}
-                                <div className="profile-vote-row">
-                                    <div className="profile">
-                                        <img className="profile-pic" src = "https://www.shutterstock.com/image-vector/vector-profile-icon-260nw-380603071.jpg"></img>
-                                        <div className="name-time-section">
-                                            <h3 className="name">{commentItem.user.email}</h3>
-                                            <h5 className="comment-time">{computePublishedAgoString(commentItem.publishedTime)}</h5>
+                        { ( comments.length > 0) ?
+                            comments.map((commentItem, i) => 
+                                <li key={i} className="comment-item"> {/* TODO: Key prop not applied? */}
+                                    <div className="profile-vote-row">
+                                        <div className="profile">
+                                            <img className="profile-pic" src = "https://www.shutterstock.com/image-vector/vector-profile-icon-260nw-380603071.jpg"></img>
+                                            <div className="name-time-section">
+                                                <h3 className="name">{commentItem.user.email}</h3>
+                                                <h5 className="comment-time">{computePublishedAgoString(commentItem.publishedTime)}</h5>
+                                            </div>
+                                        </div>
+                                        <div className="vote-section">
+                                            <h3 className="upvote-num" style={(commentItem.commentVote) ? ((commentItem.commentVote.vote == -1) ? ({color:"red"}) : ({color:"green"}) ) : ({color:"white"})}>{commentItem.votes}</h3> {/* TODO: Refactor Inline js*/}
+                                            <h3 className="vote-buttons">
+                                                <div className="vote" onClick={()=>postCommentVote(commentItem.id, 1)} style={{textDecoration : (commentItem.commentVote != null && commentItem.commentVote.vote==1)?"underline":"none"}}>Upvote</div> | <div className="vote" onClick={()=>postCommentVote(commentItem.id, -1)} style={{textDecoration : (commentItem.commentVote != null && commentItem.commentVote.vote==-1)?"underline":"none"}}>Downvote</div>
+                                            </h3>
                                         </div>
                                     </div>
-                                    <div className="vote-section">
-                                        <h3 className="upvote-num">{commentItem.upvote}</h3>
-                                        <h3 className="vote-buttons">
-                                            <div className="vote" onClick={()=>{console.log("Upvote")}}>Upvote</div> | <div className="vote" onClick={()=>(console.log("downvote"))}>Downvote</div>
-                                        </h3>
-                                    </div>
-                                </div>
-                                <h3 className="comment-text">{commentItem.comment}</h3>
-                            </li>
-                        )}
+                                    <h3 className="comment-text">{commentItem.comment}</h3>
+                                </li>)
+                            :
+                            null
+                        }
                 </ul>
                     
                 <div className="comment-bar">

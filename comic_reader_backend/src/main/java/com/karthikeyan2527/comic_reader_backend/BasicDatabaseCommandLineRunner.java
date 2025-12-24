@@ -280,7 +280,7 @@ public class BasicDatabaseCommandLineRunner implements CommandLineRunner {
         User user = optionalUser.get();
 
         log.info("Found user with id = 1 " + user.toString());
-        Comment comment = new Comment(null, user, "comic", 1956, "All Hail Mina Sama.... <3 XD.", 10, 0, LocalDateTime.now());
+        Comment comment = new Comment(null, user, "comic", 1956, "All Hail Mina Sama.... <3 XD.", 0, LocalDateTime.now());
         comment = commentDao.save(comment);
 
         log.info("Saved Comment : " + comment);

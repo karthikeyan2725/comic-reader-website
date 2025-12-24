@@ -27,9 +27,7 @@ public class Comment {
     @Column(columnDefinition = "text")
     private String comment;
 
-    private Integer upvote;
-
-    private Integer downvote;
+    private Integer votes;
 
     private LocalDateTime publishedTime;
 }

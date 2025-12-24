@@ -3,6 +3,7 @@ package com.karthikeyan2527.comic_reader_backend.controller;
 import com.karthikeyan2527.comic_reader_backend.dto.ChapterDTO;
 import com.karthikeyan2527.comic_reader_backend.dto.CommentDTO;
 import com.karthikeyan2527.comic_reader_backend.dto.CommentPostDTO;
+import com.karthikeyan2527.comic_reader_backend.dto.CommentVoteDTO;
 import com.karthikeyan2527.comic_reader_backend.service.ChapterService;
 import com.karthikeyan2527.comic_reader_backend.service.CommentService;
 import lombok.extern.slf4j.Slf4j;
@@ -42,8 +43,8 @@ public class ChapterController {
     }
 
     @GetMapping("/{chapter_id}/comments")
-    ResponseEntity<List<CommentDTO>> getChapterComments(@PathVariable("chapter_id") Integer chapterId){
-        List<CommentDTO> commentDTOS = commentService.getChapterComments(chapterId); // TODO : Chapter not found? what to do
+    ResponseEntity<List<CommentDTO>> getChapterComments(@PathVariable("chapter_id") Integer chapterId, @RequestParam(value = "token", defaultValue = "") String token){
+        List<CommentDTO> commentDTOS = commentService.getChapterComments(chapterId, token); // TODO : Chapter not found? what to do
 
         return ResponseEntity.ok(commentDTOS);
     }
@@ -53,6 +54,15 @@ public class ChapterController {
         Optional<CommentDTO> optionalCommentDTO = commentService.saveComment(commentPostDTO);
 
         if(optionalCommentDTO.isEmpty()) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PostMapping("/comment/{comment_id}/vote")
+    ResponseEntity<?> voteChapterComment(@PathVariable("comment_id") Integer commentId, @RequestParam("vote") Integer vote, @RequestParam(value = "token") String token){
+        Optional<CommentVoteDTO> optionalCommentVoteDTO = commentService.voteComment(vote, commentId, token);
+
+        if(optionalCommentVoteDTO.isEmpty()) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 
         return new ResponseEntity<>(HttpStatus.OK);
     }

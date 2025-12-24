@@ -1,9 +1,6 @@
 package com.karthikeyan2527.comic_reader_backend.controller;
 
-import com.karthikeyan2527.comic_reader_backend.dto.ChapterDTO;
-import com.karthikeyan2527.comic_reader_backend.dto.ComicDTO;
-import com.karthikeyan2527.comic_reader_backend.dto.CommentDTO;
-import com.karthikeyan2527.comic_reader_backend.dto.CommentPostDTO;
+import com.karthikeyan2527.comic_reader_backend.dto.*;
 import com.karthikeyan2527.comic_reader_backend.service.ComicService;
 import com.karthikeyan2527.comic_reader_backend.service.CommentService;
 import lombok.extern.slf4j.Slf4j;
@@ -56,8 +53,8 @@ public class ComicController {
     }
 
     @GetMapping("/{comic_id}/comments")
-    ResponseEntity<List<CommentDTO>> getComicComments(@PathVariable("comic_id") Integer comicId){ // TODO: Handle comic not found with optional, Check again for consistency
-        List<CommentDTO> comments = commentService.getComicComments(comicId);
+    ResponseEntity<List<CommentDTO>> getComicComments(@PathVariable("comic_id") Integer comicId, @RequestParam(value = "token", defaultValue = "") String token){ // TODO: Handle comic not found with optional, Check again for consistency
+        List<CommentDTO> comments = commentService.getComicComments(comicId, token);
 
         return ResponseEntity.ok(comments);
     }
@@ -78,5 +75,14 @@ public class ComicController {
         List<ComicDTO> comicDTOS = comicService.search(query);
 
         return ResponseEntity.ok(comicDTOS);
+    }
+
+    @PostMapping("/comment/{comment_id}/vote")
+    ResponseEntity<?> voteComicComment(@PathVariable("comment_id") Integer commentId, @RequestParam("vote") Integer vote, @RequestParam(value = "token") String token){
+        Optional<CommentVoteDTO> optionalCommentVoteDTO = commentService.voteComment(vote, commentId, token);
+
+        if(optionalCommentVoteDTO.isEmpty()) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

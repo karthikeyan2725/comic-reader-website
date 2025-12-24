@@ -59,7 +59,6 @@ function ReadingPage(){
     }
 
     useEffect(()=>{
-        console.log("Basic")
         setSignedIn(sessionStorage.getItem("token") != null)
         sliderGenres.forEach((genre)=>{fetchSliderComics(genre)})
     }, [])
@@ -69,7 +68,6 @@ function ReadingPage(){
     }, [signedIn])
 
     useEffect(()=>{
-        console.log("ChapterID")
         if(chapterId != null) {
             getChapter()
             if(signedIn) saveToReadHistory() 
@@ -77,7 +75,6 @@ function ReadingPage(){
     }, [chapterId])
     
     useEffect(()=>{
-        console.log("Chapter")
         setImgUrls([])
         if(chapter != null) {
             var imgUrls_ = []
