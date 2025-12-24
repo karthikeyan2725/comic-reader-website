@@ -95,7 +95,9 @@ function HomePage(){
                             <div className="hot-panel-item" key={"hot-panel-item" + i}  onClick={()=>{navigate("/comic/" + item.id)}} style={{transform: "translateX(calc(-100% * " + hotPanel.selected +"))"}}> {/* Add Navigation to page on click */}
                                 <h1 className="comic-name">{item.name}</h1>
                                 <div className="info">
-                                    <img className="cover-art" id={"cover-art-" + i} onMouseMove={(event)=>handleHover(event, i)} onMouseLeave={(event)=>handleMouseLeave(i)} src={(devMode) ? devCoverUrl : item.coverArtUrl}></img> {/* TODO: Make Image size uniform*/}
+                                    <div className="cover-art" id={"cover-art-" + i} onMouseMove={(event)=>handleHover(event, i)} onMouseLeave={(event)=>handleMouseLeave(i)}>
+                                        <img src={(devMode) ? devCoverUrl : item.coverArtUrl}></img>
+                                    </div> {/* TODO: Make Image size uniform*/}
                                     <div className="cover-art-spacer"></div>
                                     <div className="genre-description">
                                         <ul className = "genre-list">
