@@ -55,7 +55,7 @@ function Header(){ // TODO: Refactor header
             <nav className = 'links'> 
                 <ul>
                     <li><Link className = "link" to="/" onClick={()=>setSearchQuery("")}>Home</Link></li> 
-                    <li><Link className = "link" onClick={()=>setSearchQuery("")}>Browse</Link></li>
+                    <li><Link className = "link" to="/browse" onClick={()=>setSearchQuery("")}>Browse</Link></li>
                 </ul>
             </nav>
             <div id="search"> {/* TODO: make outside click only to disable search */}

@@ -38,7 +38,7 @@ public class Comic {
     @ManyToMany(cascade = CascadeType.ALL)
     private List<Genre> genres;
 
-    private String coverArtUrl;
+    private String coverArtUrl; 
 
     @OneToMany(mappedBy = "comic", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonBackReference

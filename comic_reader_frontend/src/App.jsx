@@ -8,6 +8,7 @@ import Footer from './common/Footer'
 import LinksTestPage from './LinksTestPage'
 import AuthenticationPage from './AuthenticationPage'
 import HomePage from './HomePage'
+import BrowsePage from './BrowsePage'
 
 import './App.css'
 import './Variables.css'
@@ -21,6 +22,7 @@ function App() {
     <Header/>
       <Routes>  
         <Route path='/' element={<HomePage/>}></Route>
+        <Route path='/browse' element={<BrowsePage/>}></Route>
         <Route path='/chapter/:chapterId' element={<ReadingPage/>}></Route> 
         <Route path='/comic/:comicId' element={<ChapterListingPage/>}></Route>
         <Route path='/links' element={<LinksTestPage/>}></Route>

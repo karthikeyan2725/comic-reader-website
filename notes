@@ -47,9 +47,13 @@ css:
 selector, !important (highest priority)
 @import vs link for font (links faster?
 webkit-text-stroke, paint order
-flex, gap,
+flex-shorthand, gap,
 static context, zindex
 aspect ratio
+conic gradient
+::before, ::after
+custom @Property
+linear gradient
 
 html:
 * text field : placeholder

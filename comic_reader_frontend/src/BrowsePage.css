@@ -1,0 +1,166 @@
+.browse-page {
+    margin-top: 40px;
+    display: flex;
+
+    .filter-panel {
+        color: white;
+        width: 200px;
+        height: fit-content;
+        background-image: linear-gradient(black, var(--primary-color));
+        padding-bottom: 500px;
+        padding-right: 10px;
+        padding-top: 10px;
+        display: flex;
+        flex-direction: column;
+        align-items: end;
+        
+        .filter-title {
+            color: var(--tertiary-color)
+        }
+        
+        .filter-list-item { 
+            list-style-type: none;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+
+            .filter-checkbox {
+                width: 5px;
+                height: 5px;
+                border: 4px solid var(--tertiary-color);
+            }
+
+            .filter-checkbox-selected, .filter-checkbox:active {
+                cursor: pointer;
+                background-color: var(--tertiary-color);
+                border-color: var(--primary-color);
+            }
+        }
+    }
+
+    .search-panel{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+
+        
+        .advanced-search-bar{
+            width: 80%;            
+            background-color: transparent;
+            border: 2px solid var(--tertiary-color);
+            padding: 2px;
+            display: flex;
+            justify-content: center;
+
+            .search-bar{
+                width: 100%;
+                font-family: var(--font-family);
+                font-size: larger;
+                background-color: var(--tertiary-color);
+                padding: 4px 10px;
+            }
+        }
+
+        .search-result-container{
+            width: 80%;
+            display: flex;
+            flex-wrap: wrap;
+            
+            .search-item{
+                width: calc(50% - 20px);
+                margin: 10px;
+                
+                .search-item-body{
+                    color: var(--tertiary-color);
+                    background-image: linear-gradient(var(--primary-color), black);
+                    border: 1px solid var(--tertiary-color);
+                    display: flex;
+                    flex-direction: column;
+                    padding: 20px;
+                    gap: 10px;
+
+                    .info-row{
+                        display: flex;
+                        justify-content: center;
+                        gap: 20px;
+
+                        .cover-art{
+                            height: 200px;
+                            aspect-ratio: 3/4;
+                            border: 4px solid var(--secondary-color);
+                        }
+
+                        .info-text{     
+                            display: flex;
+                            flex-direction: column;
+                            gap: 5px;
+
+                            .comic-name{
+                                font-family: var(--font-family-2); 
+                                -webkit-text-stroke: 8px black;
+                                paint-order: stroke fill;
+                            }       
+
+                            .description{
+                                font-size: large;
+                                line-height: 20px;
+                                -webkit-line-clamp: 8;
+                                -webkit-box-orient: vertical;
+                                overflow: hidden;
+                                display: -webkit-inline-box;
+                            }
+                        }
+                    }
+
+                    .genre-row{
+                        width: 100%;
+                        display: flex;
+                        flex-direction: row;
+                        align-items: center;
+                        gap: 10px;
+
+                        .genre-list{
+                            list-style-type: none;
+                            display: flex;
+                            gap:10px;
+
+                            .genre-item{
+                                border: 2px solid var(--tertiary-color);
+                                padding: 2px 10px;
+                            }
+                        }
+
+                        .more-genre{
+                            color: white;
+                            text-decoration: underline;
+                        }
+                    }
+                    
+                    .metrics-row{
+                        display: flex;
+                        justify-content: start;
+                        gap: 20px;
+
+                        .metric-item {
+                            display: flex;
+                            align-items: center;
+                            gap: 4px;
+
+                            .icon {
+                                --icon-size: 20px;
+                                height: var(--icon-size);
+                                width: var(--icon-size);
+                            }
+
+                            .value {
+                                color: white;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
