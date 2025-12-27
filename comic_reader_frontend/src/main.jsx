@@ -4,9 +4,9 @@ import { BrowserRouter } from 'react-router-dom'
 import App from './App.jsx'
 
 createRoot(document.getElementById('root')).render(
-  <StrictMode>
+  // <StrictMode> {/*TODO: Turn back on strict mode after handling toggle events */}
     <BrowserRouter>
       <App />
     </BrowserRouter>
-  </StrictMode>
+  // </StrictMode>
 )

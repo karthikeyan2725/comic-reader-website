@@ -120,7 +120,7 @@ JsonManagedReference
 JsonBackReference
 @Column- column definintion
 @Non Null
-
+@Query, @Param (Name Binding)
 
 Rest:
 @PostMapping
@@ -180,6 +180,7 @@ useNavigate
 updater function
 [] for replacing variable name in object {...obj, [variable_name] : value}
 [...Array(popularComics.length).keys()].map((n, i)=>
+flex stretch to match height with elements
 
 docker tags
 docker push

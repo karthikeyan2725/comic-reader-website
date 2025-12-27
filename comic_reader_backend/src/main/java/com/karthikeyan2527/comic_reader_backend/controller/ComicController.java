@@ -85,4 +85,11 @@ public class ComicController {
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    @GetMapping("/advanced-search")
+    ResponseEntity<?> advancedSearch(AdvancedSearchDTO advancedSearchDTO){
+        List<ComicDTO> resultComics = comicService.doAdvancedSearch(advancedSearchDTO);
+
+        return ResponseEntity.ok(resultComics);
+    }
 }
