@@ -30,7 +30,7 @@ public class SecurityConfiguration {
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{ // TODO: Move allowed endpoints to application file
         http.authorizeHttpRequests(auth->
-                auth.requestMatchers("/chapter/**", "/comic/**", "/links/**", "/user/**").permitAll() // TODO: JWT Auth to */comment
+                auth.requestMatchers("/chapter/**", "/comic/**", "/links/**", "/user/**", "/recommend/**").permitAll() // TODO: JWT Auth to */comment, /recommend
                     .anyRequest().denyAll())
             .csrf(csrf->csrf.disable());
 

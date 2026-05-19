@@ -35,7 +35,7 @@ collection = chroma_client.get_or_create_collection(
 )
 
 class Recommendation(BaseModel):
-    id_ : int
+    comic_id : int
     distance : float
 
 # increase diversity of comics?
@@ -43,7 +43,7 @@ class Recommendation(BaseModel):
         status_code = status.HTTP_200_OK, 
         description="returns similar comic ids sorted by relevance. Input comics must be unique. Invalid comic ids are ignored.")
 def recommend_comics(comic_ids : Annotated[list[str], Query()]):
-    n_results = 3
+    n_results = 5
     query_results = collection.get(ids=comic_ids, include=["embeddings"])
     
     valid_ids = query_results["ids"]
@@ -60,11 +60,11 @@ def recommend_comics(comic_ids : Annotated[list[str], Query()]):
     result : list[Recommendation] = []
     for id_ in recommendations: 
         if(id_ in valid_ids_set): continue 
-        r : Recommendation = Recommendation(id_ = id_, distance= recommendations[id_])
+        r : Recommendation = Recommendation(comic_id = id_, distance= recommendations[id_])
         result.append(r)
     
     result.sort(key = lambda r : r.distance) 
-
+    valid_ids = [int(x) for x in valid_ids]
     return {
         "valid_comic_ids" : valid_ids, 
         "recommendations" : result

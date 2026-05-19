@@ -18,6 +18,7 @@ function HomePage(){
     const [hotPanel, setHotPanel] = useState({"selected": 0, "comics":[]})
     const [sliderData, setSliderData] = useState({})
     const [readingHistory, setReadingHistory] = useState([]) // TODO: Move to sliderData? Or make new component style for reading list
+    const [recommendations, setRecommendations] = useState([])
 
     function handleHotScroll(event){ // TODO: Wheel event not stopping page scroll, refactor to panel
         event.preventDefault()
@@ -71,10 +72,20 @@ function HomePage(){
         }
     }
 
+    async function fetchComicRecommendations(){
+        try {
+            const response = await axios.get(baseUrl + "/recommend/comics?token=" + sessionStorage.getItem("token"))
+            setRecommendations(response.data)
+        } catch(error){
+            console.error("Failed to fetch Comic Recommendations for user: " + error)
+        }
+    }
+
     useEffect(()=>{
         setSignedIn(sessionStorage.getItem("token") != null)
         if(signedIn == true){
             fetchReadingHistory()
+            fetchComicRecommendations()
         } 
         fetchPopularComics()
         sliderGenres.forEach((genre)=>fetchSliderComics(genre)) // TODO: run in single http request
@@ -124,7 +135,7 @@ function HomePage(){
                 </div>
                 
                 {(signedIn && readingHistory.length > 0) ? <Slider name="Continue Reading" data={readingHistory}/> : null}
-                
+                {(signedIn && recommendations.length > 0) ? <Slider name="Based on your reading History" data={recommendations}/> : null}
                 {Object.keys(sliderData).map((key)=>
                     <Slider name={key} data={sliderData[key]}/>
                 )}
