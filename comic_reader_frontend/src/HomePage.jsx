@@ -48,6 +48,7 @@ function HomePage(){
         try{
             const response = await axios.get(baseUrl + "/comic/popular")
             setHotPanel(p => ({...p, comics : response.data}))
+            console.log(response.data)
         } catch (error){
             console.error("Failed to fetch popular comics : " + error.status)
         }
@@ -123,6 +124,40 @@ function HomePage(){
                         )}
                     </div>
                    
+                   
+                    <div className="panel-selector">
+                        {[...Array(hotPanel.comics.length).keys()].map((n)=>
+                            <div className="hot-radio" key = {"selector-panel-circle" + n}> {/* TODO: Unique Key problem*/}
+                                <div className={"outer-circle" + ((n == hotPanel.selected) ? " outer-circle-selected " : "")} onClick={()=>{setHotPanel(p => ({...p, "selected" : n}))}}>
+                                    <div className="inner-circle"></div>
+                                </div>
+                            </div>
+                        )}
+                    </div>
+                </div>
+
+                <div className="hot-panel-2" onWheel={handleHotScroll}>
+                    <div className="hot-panel-items">
+                            {hotPanel.comics.map((item, i)=>
+                            <div className="hot-panel-item" key={"hot-panel-item" + i}  onClick={()=>{navigate("/comic/" + item.id)}} style={{transform: "translateX(calc(-100% * " + hotPanel.selected +"))"}}> {/* Add Navigation to page on click */}
+                                    <div className="bg-image">
+                                        <img src="https://people.com/thmb/LaPCKkXHIQBY3cc23z64O14BhVo=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc():focal(749x0:751x2)/dandadan-characters-1-071825-807ccc66d6d945c78d711b664a70266f.jpg"></img>
+                                    </div>
+                                    <div className="name-gen-desc">
+                                        <h1 className="comic-name">{item.name}</h1>
+                                        <div className="genre-description">
+                                            <ul className = "genre-list">
+                                                {item.genres.map((genre, i)=>
+                                                    <li><h3 className="genre-bar" key={i}>{genre.name}</h3></li> /* TODO: convert to genre component, also in chapter listis */
+                                                )}
+                                            </ul>
+                                            <h2 className="description">{(item.description)}</h2> 
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
+                    </div>
+
                     <div className="panel-selector">
                         {[...Array(hotPanel.comics.length).keys()].map((n)=>
                             <div className="hot-radio" key = {"selector-panel-circle" + n}> {/* TODO: Unique Key problem*/}
